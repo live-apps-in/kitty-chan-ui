@@ -10,7 +10,6 @@ import { AppDispatch, useAppSelector } from '@/redux/store';
 import Image from 'next/image';
 import { useDispatch } from 'react-redux';
 import { logOut } from '@/redux/slices/authSlice';
-import { DISCORD_OAUTH_URL } from '@/constants/auth';
 
 const navigation = [
   { name: 'Product', href: '#' },
@@ -76,7 +75,7 @@ const Header = () => {
           {/* User Details */}
           {!isAuth ? (
             <a
-              href={DISCORD_OAUTH_URL}
+              href={process.env.NEXT_PUBLIC_DISCORD_OAUTH_URL}
               className='rounded-lg bg-purple-700 px-4 py-2 text-white'
             >
               Login With Discord
@@ -193,7 +192,7 @@ const Header = () => {
                   </button>
                 ) : (
                   <a
-                    href={DISCORD_OAUTH_URL}
+                    href={process.env.NEXT_PUBLIC_DISCORD_OAUTH_URL}
                     onClick={() => setMobileMenuOpen(false)}
                     className='-mx-3 block rounded-lg px-3 py-2.5 text-start text-base font-semibold leading-7 text-white hover:bg-purple-500/10 hover:text-purple-500'
                   >

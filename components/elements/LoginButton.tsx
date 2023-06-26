@@ -1,4 +1,3 @@
-import { DISCORD_OAUTH_URL } from '@/constants/auth';
 import React from 'react';
 
 const LoginButton = () => {
@@ -9,7 +8,7 @@ const LoginButton = () => {
         <span className='text-purple-300 transition duration-200 group-hover:text-purple-100'>
           <a
             className='text-md font-semibold tracking-wider'
-            href={DISCORD_OAUTH_URL}
+            href={process.env.NEXT_PUBLIC_DISCORD_OAUTH_URL}
           >
             Login with Discord
           </a>
