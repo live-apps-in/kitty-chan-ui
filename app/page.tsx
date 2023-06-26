@@ -1,3 +1,5 @@
-export default function Home() {
-  return <main className='p-2'>Kitty Chan UI</main>;
+import Home from '@/components/templates/Home';
+
+export default function HomePage() {
+  return <Home />;
 }

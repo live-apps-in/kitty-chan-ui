@@ -1,12 +1,10 @@
 import './globals.css';
-import { Inter } from 'next/font/google';
-
-const inter = Inter({ subsets: ['latin'] });
+import { ReduxProvider } from '@/redux/provider';
 
 export const metadata = {
-  title: 'Kitty Chan',
+  title: 'kitty chan',
   description:
-    'Kitty chan is a Discord bot, powerful enough to moderate your Discord server.',
+    'kitty chan is a Discord bot, powerful enough to moderate your Discord server.',
 };
 
 export default function RootLayout({
@@ -16,7 +14,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang='en'>
-      <body className={inter.className}>{children}</body>
+      <body>
+        <ReduxProvider>{children}</ReduxProvider>
+      </body>
     </html>
   );
 }
