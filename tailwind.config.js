@@ -17,6 +17,7 @@ module.exports = {
         kittyLightGray: '#262934',
         kittyTextGray: '#626670',
         kittyNeutralBlack: '#17181e',
+        kittyFormBg: '#1f2229',
       },
     },
   },

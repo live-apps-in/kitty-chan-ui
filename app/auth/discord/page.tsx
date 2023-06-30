@@ -26,7 +26,7 @@ export default function DiscordAuth() {
         Cookies.set('accessToken', accessToken, {
           expires: 7,
         });
-        router.push('/all-guilds');
+        router.push('/servers');
       } else {
         router.push('/');
       }

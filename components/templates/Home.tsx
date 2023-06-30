@@ -24,7 +24,10 @@ const Home = () => {
             Powerful Enough to Moderate <br /> your Discord server
           </h4>
           {!loading && isAuth ? (
-            <Link href='/all-guilds' className='text-white'>
+            <Link
+              href='/servers'
+              className='rounded-xl bg-[#fce4a8] px-4 py-2 text-sm font-semibold text-black transition hover:border hover:border-[#fce4a8] hover:bg-transparent hover:text-white'
+            >
               Add to Server
             </Link>
           ) : (

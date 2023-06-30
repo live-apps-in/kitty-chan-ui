@@ -1,3 +1,4 @@
+'use client';
 import { Fragment, useEffect, useState } from 'react';
 import { Dialog, Menu, Transition } from '@headlessui/react';
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
@@ -7,10 +8,10 @@ import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { AppDispatch, useAppSelector } from '@/redux/store';
-import { useAuth } from '@/hooks/useAuth';
 import { useRouter } from 'next/navigation';
 import { logOut } from '@/redux/slices/authSlice';
 import { useDispatch } from 'react-redux';
+import { useAuth } from '@/hooks/useAuth';
 
 const navigation = [
   {
@@ -61,9 +62,19 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
   const pathname = usePathname();
   const router = useRouter();
 
+  const { loading } = useAuth();
+
   const { isAuth, userDetails } = useAppSelector(
     (state) => state.authReducer.value
   );
+
+  useEffect(() => {
+    if (!loading && !userDetails) {
+      router.push('/');
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [loading, userDetails]);
+
   const dispatch = useDispatch<AppDispatch>();
 
   return (
@@ -470,7 +481,7 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
                       </li>
 
                       <div className='h-[1px] w-full bg-gray-700' />
-                      <Link href='/all-guilds'>
+                      <Link href='/servers'>
                         <li className='my-2 w-full cursor-pointer px-2 py-3 hover:rounded-xl hover:bg-kittyNeutralBlack hover:text-white '>
                           Add new Server
                         </li>
@@ -519,7 +530,7 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
                           {`${userDetails?.discord.username}#${userDetails?.discord.discriminator}`}
                         </p>
                       </li>
-                      <Link href='/all-guilds'>
+                      <Link href='/servers'>
                         <li className='my-2 w-full rounded-xl px-2 py-3 hover:bg-kittyNeutralBlack hover:text-white'>
                           Servers
                         </li>
@@ -542,7 +553,7 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
           </div>
         </div>
 
-        <main className='h-screen bg-kittyLightGray py-10'>
+        <main className='h-full bg-kittyLightGray py-10'>
           <div className='px-4 sm:px-6'>{children}</div>
         </main>
       </div>

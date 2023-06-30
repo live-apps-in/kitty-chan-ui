@@ -113,7 +113,7 @@ const Header = () => {
                     {`${userDetails?.discord.username}#${userDetails?.discord.discriminator}`}
                   </p>
                 </li>
-                <Link href='/all-guilds'>
+                <Link href='/servers'>
                   <li className='my-2 w-full rounded-xl px-2 py-3 hover:bg-kittyNeutralBlack hover:text-white'>
                     Servers
                   </li>
