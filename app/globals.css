@@ -13,3 +13,7 @@
   box-sizing: border-box;
   font-family: Open Sans;
 }
+
+.form-input-field {
+  @apply block rounded-md border-0 bg-kittyNeutralBlack px-2 py-2 text-white shadow-sm outline-none placeholder:text-kittyTextGray sm:text-sm sm:leading-6;
+}
