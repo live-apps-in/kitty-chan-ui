@@ -14,50 +14,6 @@ import { useDispatch } from 'react-redux';
 import { useAuth } from '@/hooks/useAuth';
 import { GuildDto } from '@/types/AllGuilds';
 
-const navigation = [
-  {
-    name: 'Dashboard',
-    href: '/dashboard/1109546114371301479',
-    icon: '/assets/icons/dashboard.svg',
-  },
-];
-
-const generals = [
-  {
-    name: 'greet',
-    href: '/dashboard/1109546114371301479/greet',
-    icon: '/assets/icons/home.svg',
-  },
-  {
-    name: 'logs',
-    href: '/dashboard/1109546114371301479/logs',
-    icon: '/assets/icons/list.svg',
-  },
-];
-
-const features = [
-  {
-    name: 'Reaction Roles',
-    href: '/dashboard/1109546114371301479/reaction-roles',
-    icon: '/assets/icons/reaction-roles.svg',
-  },
-  {
-    name: 'Language filters',
-    href: '/dashboard/1109546114371301479/language-filters',
-    icon: '/assets/icons/language.svg',
-  },
-  {
-    name: 'Portal',
-    href: '/dashboard/1109546114371301479/portal',
-    icon: '/assets/icons/portal.svg',
-  },
-  {
-    name: 'Hands Free',
-    href: '/dashboard/1109546114371301479/hands-free',
-    icon: '/assets/icons/hands-free.svg',
-  },
-];
-
 const DashboardLayout = ({
   children,
   guildId,
@@ -80,6 +36,7 @@ const DashboardLayout = ({
   const { allGuilds, currentGuildId } = useAppSelector(
     (state) => state.guildReducer.value
   );
+
   const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
@@ -100,6 +57,50 @@ const DashboardLayout = ({
     }
     setCurrentGuild(guilds?.[0]);
   }, []);
+
+  const navigation = [
+    {
+      name: 'Dashboard',
+      href: `/dashboard/${currentGuild?.guildId}`,
+      icon: '/assets/icons/dashboard.svg',
+    },
+  ];
+
+  const generals = [
+    {
+      name: 'greet',
+      href: `/dashboard/${currentGuild?.guildId}/greet`,
+      icon: '/assets/icons/home.svg',
+    },
+    {
+      name: 'logs',
+      href: `/dashboard/${currentGuild?.guildId}/logs`,
+      icon: '/assets/icons/list.svg',
+    },
+  ];
+
+  const features = [
+    {
+      name: 'Reaction Roles',
+      href: `/dashboard/${currentGuild?.guildId}/reaction-roles`,
+      icon: '/assets/icons/reaction-roles.svg',
+    },
+    {
+      name: 'Language filters',
+      href: `/dashboard/${currentGuild?.guildId}/language-filters`,
+      icon: '/assets/icons/language.svg',
+    },
+    {
+      name: 'Portal',
+      href: `/dashboard/${currentGuild?.guildId}/portal`,
+      icon: '/assets/icons/portal.svg',
+    },
+    {
+      name: 'Hands Free',
+      href: `/dashboard/${currentGuild?.guildId}/hands-free`,
+      icon: '/assets/icons/hands-free.svg',
+    },
+  ];
 
   return (
     <>
@@ -194,7 +195,7 @@ const DashboardLayout = ({
                                 href={item.href}
                                 className={`
                                       ${
-                                        pathname.includes(item.href)
+                                        pathname === item.href
                                           ? 'bg-kittyNeutralBlack text-white'
                                           : 'text-kittyTextGray hover:bg-kittyNeutralBlack hover:text-white'
                                       }
@@ -204,7 +205,7 @@ const DashboardLayout = ({
                                 <Image
                                   src={item.icon}
                                   className={`${
-                                    pathname.includes(item.href)
+                                    pathname === item.href
                                       ? ''
                                       : 'text-gray-400 group-hover:text-white'
                                   }
@@ -232,7 +233,7 @@ const DashboardLayout = ({
                                 href={item.href}
                                 className={`
                                       ${
-                                        pathname.includes(item.href)
+                                        pathname === item.href
                                           ? 'bg-kittyNeutralBlack text-white'
                                           : 'text-kittyTextGray hover:bg-kittyNeutralBlack hover:text-white'
                                       }
@@ -242,7 +243,7 @@ const DashboardLayout = ({
                                 <Image
                                   src={item.icon}
                                   className={`${
-                                    pathname.includes(item.href)
+                                    pathname === item.href
                                       ? ''
                                       : 'text-gray-400 group-hover:text-white'
                                   }
@@ -270,7 +271,7 @@ const DashboardLayout = ({
                                 href={item.href}
                                 className={`
                                       ${
-                                        pathname.includes(item.href)
+                                        pathname === item.href
                                           ? 'bg-kittyNeutralBlack text-white'
                                           : 'text-kittyTextGray hover:bg-kittyNeutralBlack hover:text-white'
                                       }
@@ -280,7 +281,7 @@ const DashboardLayout = ({
                                 <Image
                                   src={item.icon}
                                   className={`${
-                                    pathname.includes(item.href)
+                                    pathname === item.href
                                       ? ''
                                       : 'text-gray-400 group-hover:text-white'
                                   }
@@ -347,7 +348,7 @@ const DashboardLayout = ({
                       <a
                         href={item.href}
                         className={`${
-                          pathname.includes(item.href)
+                          pathname === item.href
                             ? 'bg-kittyNeutralBlack text-white'
                             : 'text-kittyTextGray hover:bg-kittyNeutralBlack hover:text-white'
                         }
@@ -357,7 +358,7 @@ const DashboardLayout = ({
                         <Image
                           src={item.icon}
                           className={`${
-                            pathname.includes(item.href)
+                            pathname === item.href
                               ? ''
                               : 'text-gray-400 group-hover:text-white'
                           }
@@ -384,7 +385,7 @@ const DashboardLayout = ({
                       <a
                         href={item.href}
                         className={`${
-                          pathname.includes(item.href)
+                          pathname === item.href
                             ? 'bg-kittyNeutralBlack text-white'
                             : 'text-kittyTextGray hover:bg-kittyNeutralBlack hover:text-white'
                         }
@@ -394,7 +395,7 @@ const DashboardLayout = ({
                         <Image
                           src={item.icon}
                           className={`${
-                            pathname.includes(item.href)
+                            pathname === item.href
                               ? ''
                               : 'text-gray-400 group-hover:text-white'
                           }
@@ -421,7 +422,7 @@ const DashboardLayout = ({
                       <a
                         href={item.href}
                         className={`${
-                          pathname.includes(item.href)
+                          pathname === item.href
                             ? 'bg-kittyNeutralBlack text-white'
                             : 'text-kittyTextGray hover:bg-kittyNeutralBlack hover:text-white'
                         }
@@ -431,7 +432,7 @@ const DashboardLayout = ({
                         <Image
                           src={item.icon}
                           className={`${
-                            pathname.includes(item.href)
+                            pathname === item.href
                               ? ''
                               : 'text-gray-400 group-hover:text-white'
                           }

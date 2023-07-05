@@ -21,7 +21,6 @@ const AllGuilds = () => {
   );
 
   const dispatch = useDispatch<AppDispatch>();
-
   const router = useRouter();
 
   const fetchGuilds = async () => {
@@ -50,7 +49,7 @@ const AllGuilds = () => {
       fetchGuilds();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [loading, userDetails]);
+  }, []);
 
   return (
     userDetails && (

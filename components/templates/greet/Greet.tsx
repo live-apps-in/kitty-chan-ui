@@ -1,13 +1,15 @@
 'use client';
 import { useAppSelector } from '@/redux/store';
+import { GuildDto } from '@/types/AllGuilds';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import { useState, useEffect } from 'react';
 
 const Greet = () => {
   const [greet, setGreet] = useState<any>(null);
+  const [currentGuild, setCurrentGuild] = useState<GuildDto>();
 
-  const { currentGuildId } = useAppSelector(
+  const { currentGuildId, allGuilds } = useAppSelector(
     (state) => state.guildReducer.value
   );
 
@@ -33,12 +35,22 @@ const Greet = () => {
   }
 
   useEffect(() => {
-    fetchGreet();
-  }, []);
+    // Allow only guild_owner to access greet route
+    const guilds = allGuilds?.filter(
+      (guild: any) => guild.guildId === currentGuildId
+    );
+    setCurrentGuild(guilds?.[0]);
+    if (currentGuild?.userRole === 'guild_owner') fetchGreet();
+  }, [currentGuild]);
 
+  console.log(currentGuild);
   console.log(greet);
 
-  return <div className='h-full text-white'>Greet</div>;
+  return (
+    <div className='h-full text-white'>
+      <h2>Greet</h2>
+    </div>
+  );
 };
 
 export default Greet;
