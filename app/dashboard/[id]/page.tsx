@@ -2,9 +2,12 @@
 import Dashboard from '@/components/templates/dashboard/Dashboard';
 import { useAuth } from '@/hooks/useAuth';
 import DashboardLayout from '@/layouts/DashboardLayout';
-import { useAppSelector } from '@/redux/store';
-import { useRouter } from 'next/navigation';
+import { setCurrentGuildId } from '@/redux/slices/guildSlice';
+import { AppDispatch, useAppSelector } from '@/redux/store';
+import Cookies from 'js-cookie';
+import { useParams, useRouter } from 'next/navigation';
 import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 
 export default function DashboardPage() {
   const { loading } = useAuth();
@@ -12,7 +15,10 @@ export default function DashboardPage() {
     (state) => state.authReducer.value
   );
 
+  const { id } = useParams();
   const router = useRouter();
+
+  const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
     if (!loading && !userDetails) {
@@ -21,13 +27,20 @@ export default function DashboardPage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loading, userDetails]);
 
+  useEffect(() => {
+    if (id) {
+      Cookies.set('current-guild', JSON.stringify(id));
+      dispatch(setCurrentGuildId(id));
+    }
+  }, [id]);
+
   if (loading && !userDetails) {
     return null;
   }
 
   return (
     isAuth && (
-      <DashboardLayout>
+      <DashboardLayout guildId={id}>
         <Dashboard />
       </DashboardLayout>
     )

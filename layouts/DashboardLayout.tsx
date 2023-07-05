@@ -12,6 +12,7 @@ import { useRouter } from 'next/navigation';
 import { logOut } from '@/redux/slices/authSlice';
 import { useDispatch } from 'react-redux';
 import { useAuth } from '@/hooks/useAuth';
+import { GuildDto } from '@/types/AllGuilds';
 
 const navigation = [
   {
@@ -23,8 +24,8 @@ const navigation = [
 
 const generals = [
   {
-    name: 'Welcome Message',
-    href: '/dashboard/1109546114371301479/welcome',
+    name: 'greet',
+    href: '/dashboard/1109546114371301479/greet',
     icon: '/assets/icons/home.svg',
   },
   {
@@ -57,8 +58,16 @@ const features = [
   },
 ];
 
-const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
+const DashboardLayout = ({
+  children,
+  guildId,
+}: {
+  children: React.ReactNode;
+  guildId?: string;
+}) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [currentGuild, setCurrentGuild] = useState<GuildDto>();
+
   const pathname = usePathname();
   const router = useRouter();
 
@@ -68,6 +77,11 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
     (state) => state.authReducer.value
   );
 
+  const { allGuilds, currentGuildId } = useAppSelector(
+    (state) => state.guildReducer.value
+  );
+  const dispatch = useDispatch<AppDispatch>();
+
   useEffect(() => {
     if (!loading && !userDetails) {
       router.push('/');
@@ -75,7 +89,17 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loading, userDetails]);
 
-  const dispatch = useDispatch<AppDispatch>();
+  useEffect(() => {
+    let guilds;
+    if (guildId) {
+      guilds = allGuilds?.filter((guild: any) => guild.guildId === guildId);
+    } else {
+      guilds = allGuilds?.filter(
+        (guild: any) => guild.guildId === currentGuildId
+      );
+    }
+    setCurrentGuild(guilds?.[0]);
+  }, []);
 
   return (
     <>
@@ -447,49 +471,61 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
           <div className='flex flex-1 gap-x-4 self-stretch lg:gap-x-6'>
             <div className='ml-auto flex items-center gap-x-4 lg:gap-x-14'>
               {/* Current Guild */}
-              <Menu as='div' className='relative'>
-                <Menu.Button className='hidden h-[54px] w-[259px] cursor-pointer items-center justify-around rounded-md bg-kittyNeutralBlack lg:flex'>
-                  {/* Image */}
-                  <div className='flex items-center gap-4'>
-                    <Image
-                      src='/assets/images/kitty-chan-logo.jpg'
-                      width={200}
-                      height={200}
-                      alt='Guild'
-                      className='h-9 w-auto rounded-full'
+              {currentGuild && (
+                <Menu as='div' className='relative'>
+                  <Menu.Button className='hidden h-[54px] w-[259px] cursor-pointer items-center justify-around rounded-md bg-kittyNeutralBlack lg:flex'>
+                    {/* Image */}
+                    <div className='flex items-center gap-4'>
+                      <Image
+                        src={`${
+                          currentGuild.icon
+                            ? `https://cdn.discordapp.com/icons/${currentGuild.guildId}/${currentGuild.icon}.png`
+                            : '/assets/images/guild-default-icon.jpg'
+                        } 
+`}
+                        alt={currentGuild.name}
+                        width={200}
+                        height={200}
+                        className='h-9 w-9 rounded-full'
+                      />
+                      <h2 className='font-semibold text-white'>
+                        {currentGuild.name}
+                      </h2>
+                    </div>
+                    <ChevronDownIcon
+                      className='ml-2 h-5 w-5 text-gray-400'
+                      aria-hidden='true'
                     />
-                    <h2 className='font-semibold text-white'>Tech Wings</h2>
-                  </div>
-                  <ChevronDownIcon
-                    className='ml-2 h-5 w-5 text-gray-400'
-                    aria-hidden='true'
-                  />
-                </Menu.Button>
-                <Transition
-                  as={Fragment}
-                  enter='transition ease-out duration-100'
-                  enterFrom='transform opacity-0 scale-95'
-                  enterTo='transform opacity-100 scale-100'
-                  leave='transition ease-in duration-75'
-                  leaveFrom='transform opacity-100 scale-100'
-                  leaveTo='transform opacity-0 scale-95'
-                >
-                  <div className='absolute right-0 z-10 mt-2.5 w-52 origin-top-right rounded-md bg-kittyDarkGray p-2 text-gray-400 shadow-lg ring-1 ring-gray-900/5 focus:outline-none'>
-                    <ul className='w-full text-sm'>
-                      <li className='my-2 w-full rounded-xl p-2'>
-                        Server: <span className='text-white'>Tech Wings</span>
-                      </li>
-
-                      <div className='h-[1px] w-full bg-gray-700' />
-                      <Link href='/servers'>
-                        <li className='my-2 w-full cursor-pointer px-2 py-3 hover:rounded-xl hover:bg-kittyNeutralBlack hover:text-white '>
-                          Add new Server
+                  </Menu.Button>
+                  <Transition
+                    as={Fragment}
+                    enter='transition ease-out duration-100'
+                    enterFrom='transform opacity-0 scale-95'
+                    enterTo='transform opacity-100 scale-100'
+                    leave='transition ease-in duration-75'
+                    leaveFrom='transform opacity-100 scale-100'
+                    leaveTo='transform opacity-0 scale-95'
+                  >
+                    <div className='absolute right-0 z-10 mt-2.5 w-52 origin-top-right rounded-md bg-kittyDarkGray p-2 text-gray-400 shadow-lg ring-1 ring-gray-900/5 focus:outline-none'>
+                      <ul className='w-full text-sm'>
+                        <li className='my-2 w-full rounded-xl p-2'>
+                          Server:{' '}
+                          <span className='text-white'>
+                            {currentGuild?.name}
+                          </span>
                         </li>
-                      </Link>
-                    </ul>
-                  </div>
-                </Transition>
-              </Menu>
+
+                        <div className='h-[1px] w-full bg-gray-700' />
+                        <Link href='/servers'>
+                          <li className='my-2 w-full cursor-pointer px-2 py-3 hover:rounded-xl hover:bg-kittyNeutralBlack hover:text-white '>
+                            Add new Server
+                          </li>
+                        </Link>
+                      </ul>
+                    </div>
+                  </Transition>
+                </Menu>
+              )}
 
               {/* Profile dropdown */}
               <Menu as='div' className='relative'>
@@ -553,7 +589,7 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
           </div>
         </div>
 
-        <main className='h-full bg-kittyLightGray py-10'>
+        <main className='h-screen bg-kittyLightGray py-10'>
           <div className='px-4 sm:px-6'>{children}</div>
         </main>
       </div>

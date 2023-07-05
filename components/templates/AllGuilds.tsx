@@ -5,10 +5,12 @@ import Cookies from 'js-cookie';
 import { useAuth } from '@/hooks/useAuth';
 import { useRouter } from 'next/navigation';
 import Header from '../common/Header';
-import { useAppSelector } from '@/redux/store';
+import { AppDispatch, useAppSelector } from '@/redux/store';
 import Image from 'next/image';
 import { GuildDto } from '@/types/AllGuilds';
 import Link from 'next/link';
+import { useDispatch } from 'react-redux';
+import { setAllGuilds } from '@/redux/slices/guildSlice';
 
 const AllGuilds = () => {
   const { loading } = useAuth();
@@ -17,6 +19,8 @@ const AllGuilds = () => {
   const userDetails = useAppSelector(
     (state) => state.authReducer.value.userDetails
   );
+
+  const dispatch = useDispatch<AppDispatch>();
 
   const router = useRouter();
 
@@ -32,6 +36,8 @@ const AllGuilds = () => {
         }
       );
       setGuilds(data);
+      Cookies.set('all-guilds', JSON.stringify(data));
+      dispatch(setAllGuilds(data));
     } catch (error) {
       console.log(error);
     }

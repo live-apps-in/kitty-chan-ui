@@ -13,7 +13,9 @@ type InitialState = {
 const initialState = {
   value: {
     isAuth: false,
-    userDetails: null,
+    userDetails: Cookies.get('userDetails')
+      ? JSON.parse(Cookies.get('userDetails')!)
+      : null,
   },
 } as InitialState;
 
@@ -22,7 +24,6 @@ export const auth = createSlice({
   initialState,
   reducers: {
     setUserDetails: (state, action: PayloadAction<any>) => {
-      Cookies.set('userDetails', action.payload);
       return {
         value: {
           isAuth: true,

@@ -23,6 +23,7 @@ export function useAuth() {
 
         if (status === 200) {
           // Setting to redux auth state
+          Cookies.set('userDetails', JSON.stringify(data));
           dispatch(setUserDetails(data));
         } else {
           dispatch(logOut());
