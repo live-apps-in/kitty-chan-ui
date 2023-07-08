@@ -1,15 +1,17 @@
 import { Fragment } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
-import { CheckIcon } from '@heroicons/react/24/outline';
+import Link from 'next/link';
 
 interface ChooseTemplateTypeModalProps {
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  currentGuildId: string | null;
 }
 
 export default function ChooseTemplateTypeModal({
   open,
   setOpen,
+  currentGuildId,
 }: ChooseTemplateTypeModalProps) {
   return (
     <Transition.Root show={open} as={Fragment}>
@@ -39,30 +41,28 @@ export default function ChooseTemplateTypeModal({
             >
               <Dialog.Panel className='relative transform overflow-hidden rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-sm sm:p-6'>
                 <div>
-              
-                  <div className='mt-3 text-center sm:mt-5'>
+                  <div className='mt-3 text-center sm:mt-2'>
                     <Dialog.Title
                       as='h3'
-                      className='text-base font-semibold leading-6 text-gray-900'
+                      className='text-base font-semibold leading-6 text-gray-900 pb-4'
                     >
-                      Payment successful
+                      Choose Template Type
                     </Dialog.Title>
-                    <div className='mt-2'>
-                      <p className='text-sm text-gray-500'>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                        Consequatur amet labore.
-                      </p>
+                    <div className='mt-2 space-x-6'>
+                      <Link
+                        href={`/dashboard/${currentGuildId}/greet/welcome/plain`}
+                        className='bg-black px-4 py-2 text-white text-sm tracking-wide rounded-full font-semibold'
+                      >
+                        Plain
+                      </Link>
+                      <Link
+                        href={`/dashboard/${currentGuildId}/greet/welcome/embed`}
+                        className='bg-black px-4 py-2 text-white text-sm tracking-wide rounded-full font-semibold'
+                      >
+                        Embed
+                      </Link>
                     </div>
                   </div>
-                </div>
-                <div className='mt-5 sm:mt-6'>
-                  <button
-                    type='button'
-                    className='inline-flex w-full justify-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600'
-                    onClick={() => setOpen(false)}
-                  >
-                    Go back to dashboard
-                  </button>
                 </div>
               </Dialog.Panel>
             </Transition.Child>
