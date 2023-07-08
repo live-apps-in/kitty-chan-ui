@@ -1,12 +1,14 @@
 'use client';
 import { useAppSelector } from '@/redux/store';
 import { GuildDto } from '@/types/AllGuilds';
+import { GreetDto } from '@/types/Greet';
 import axios from 'axios';
 import Cookies from 'js-cookie';
+import Link from 'next/link';
 import { useState, useEffect } from 'react';
 
 const Greet = () => {
-  const [greet, setGreet] = useState<any>(null);
+  const [greet, setGreet] = useState<GreetDto | null>(null);
   const [currentGuild, setCurrentGuild] = useState<GuildDto>();
 
   const { currentGuildId, allGuilds } = useAppSelector(
@@ -26,6 +28,7 @@ const Greet = () => {
       );
       if (status === 200) {
         setGreet(data);
+        Cookies.set('greet-details', JSON.stringify(data));
       } else {
         setGreet(null);
       }
@@ -47,8 +50,22 @@ const Greet = () => {
   console.log(greet);
 
   return (
-    <div className='h-full text-white'>
-      <h2>Greet</h2>
+    <div className='h-screen text-white'>
+      <p className='mb-6'>Choose the greet</p>
+      <ul className='flex flex-wrap items-center gap-6'>
+        <Link
+          href={`/dashboard/${currentGuild?.guildId}/greet/welcome`}
+          className='flex h-32 w-64 cursor-pointer  items-center justify-center rounded-md border-2 border-kittyTextGray bg-kittyNeutralBlack shadow-xl'
+        >
+          <h2 className='text-xl font-bold tracking-wider'>Welcome</h2>
+        </Link>
+        <Link
+          href={`/dashboard/${currentGuild?.guildId}/greet/farewell`}
+          className='flex h-32 w-64 cursor-pointer  items-center justify-center rounded-md border-2 border-kittyTextGray bg-kittyNeutralBlack shadow-xl'
+        >
+          <h2 className='text-xl font-bold tracking-wider'>Farewell</h2>
+        </Link>
+      </ul>
     </div>
   );
 };

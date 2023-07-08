@@ -191,7 +191,7 @@ const DashboardLayout = ({
                         <ul role='list' className='-mx-2 space-y-1'>
                           {navigation.map((item) => (
                             <li key={item.name}>
-                              <a
+                              <Link
                                 href={item.href}
                                 className={`
                                       ${
@@ -217,7 +217,7 @@ const DashboardLayout = ({
                                   height={200}
                                 />
                                 {item.name}
-                              </a>
+                              </Link>
                             </li>
                           ))}
                         </ul>
@@ -229,7 +229,7 @@ const DashboardLayout = ({
                         <ul role='list' className='-mx-2 space-y-1'>
                           {generals.map((item) => (
                             <li key={item.name}>
-                              <a
+                              <Link
                                 href={item.href}
                                 className={`
                                       ${
@@ -255,7 +255,7 @@ const DashboardLayout = ({
                                   height={200}
                                 />
                                 {item.name}
-                              </a>
+                              </Link>
                             </li>
                           ))}
                         </ul>
@@ -267,7 +267,7 @@ const DashboardLayout = ({
                         <ul role='list' className='-mx-2 space-y-1'>
                           {features.map((item) => (
                             <li key={item.name}>
-                              <a
+                              <Link
                                 href={item.href}
                                 className={`
                                       ${
@@ -293,7 +293,7 @@ const DashboardLayout = ({
                                   height={200}
                                 />
                                 {item.name}
-                              </a>
+                              </Link>
                             </li>
                           ))}
                         </ul>
@@ -345,7 +345,7 @@ const DashboardLayout = ({
                 <ul role='list' className='-mx-2 space-y-1'>
                   {navigation.map((item) => (
                     <li key={item.name}>
-                      <a
+                      <Link
                         href={item.href}
                         className={`${
                           pathname === item.href
@@ -370,7 +370,7 @@ const DashboardLayout = ({
                           height={200}
                         />
                         {item.name}
-                      </a>
+                      </Link>
                     </li>
                   ))}
                 </ul>
@@ -382,7 +382,7 @@ const DashboardLayout = ({
                 <ul role='list' className='-mx-2 space-y-1'>
                   {generals.map((item) => (
                     <li key={item.name}>
-                      <a
+                      <Link
                         href={item.href}
                         className={`${
                           pathname === item.href
@@ -407,7 +407,7 @@ const DashboardLayout = ({
                           height={200}
                         />
                         {item.name}
-                      </a>
+                      </Link>
                     </li>
                   ))}
                 </ul>
@@ -419,7 +419,7 @@ const DashboardLayout = ({
                 <ul role='list' className='-mx-2 space-y-1'>
                   {features.map((item) => (
                     <li key={item.name}>
-                      <a
+                      <Link
                         href={item.href}
                         className={`${
                           pathname === item.href
@@ -444,7 +444,7 @@ const DashboardLayout = ({
                           height={200}
                         />
                         {item.name}
-                      </a>
+                      </Link>
                     </li>
                   ))}
                 </ul>
@@ -590,7 +590,7 @@ const DashboardLayout = ({
           </div>
         </div>
 
-        <main className='h-screen bg-kittyLightGray py-10'>
+        <main className='h-full bg-kittyLightGray py-10'>
           <div className='px-4 sm:px-6'>{children}</div>
         </main>
       </div>
