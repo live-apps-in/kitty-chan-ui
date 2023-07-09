@@ -58,9 +58,6 @@ const DashboardLayout = ({
     setCurrentGuild(guilds?.[0]);
   }, []);
 
-  console.log(currentGuildId);
-  console.log(allGuilds);
-
   const navigation = [
     {
       name: 'Dashboard',
@@ -325,7 +322,7 @@ const DashboardLayout = ({
                 visible: { opacity: 1, x: 0 },
               }}
             >
-              <Link href='' className='flex items-center gap-2'>
+              <Link href={'/'} className='flex items-center gap-2'>
                 <Image
                   width={500}
                   height={500}

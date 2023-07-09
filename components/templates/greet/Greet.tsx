@@ -46,9 +46,6 @@ const Greet = () => {
     if (currentGuild?.userRole === 'guild_owner') fetchGreet();
   }, [currentGuild]);
 
-  console.log(currentGuild);
-  console.log(greet);
-
   return (
     <div className='h-screen text-white'>
       <p className='mb-6'>Choose the greet</p>

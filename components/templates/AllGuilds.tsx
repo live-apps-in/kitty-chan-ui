@@ -65,7 +65,7 @@ const AllGuilds = () => {
               <Image
                 src={`${
                   guild.icon
-                    ? `https://cdn.discordapp.com/icons/${guild.guildId}/${guild.icon}.png`
+                    ? `https://cdn.discordapp.com/icons/${guild?.guildId}/${guild?.icon}.png`
                     : '/assets/images/guild-default-icon.jpg'
                 } 
 `}
@@ -74,8 +74,8 @@ const AllGuilds = () => {
                 height={500}
                 className='h-44 w-44 rounded-xl'
               />
-              <h2 className='font-semibold text-white'>{guild.name}</h2>
-              <Link href={`/dashboard/${guild.guildId}`}>
+              <h2 className='font-semibold text-white'>{guild?.name}</h2>
+              <Link href={`/dashboard/${guild?.guildId}`}>
                 <button className='mt-2 rounded-lg bg-gray-600 px-4 py-2 text-white'>
                   Add
                 </button>

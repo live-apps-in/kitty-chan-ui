@@ -54,7 +54,6 @@ const WelcomeGreet = () => {
     }
   }
 
-  console.log(greet?.welcome.templateId);
 
   useEffect(() => {
     fetchWelcomeGreetTemplates();
@@ -62,6 +61,7 @@ const WelcomeGreet = () => {
 
   async function handleApplyTemplate(templateId: string) {
     // Keeping other greet data (i.e farewell) as it is & updating only welcome templateId
+
     const greetData = {
       isActive: greet?.isActive,
       farewell: { ...greet?.farewell },
@@ -117,10 +117,6 @@ const WelcomeGreet = () => {
       console.log('Delete Welcome Template Error: ', error);
     }
   }
-
-  console.log(templates);
-  console.log(currentTemplateId);
-  console.log(greet);
 
   return (
     <div className='relative min-h-screen text-white'>

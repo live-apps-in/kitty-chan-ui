@@ -32,7 +32,6 @@ const EmbedBuilderPreview = ({
   footerText,
   footerIconURL,
 }: EmbedBuilderPreviewProps) => {
-  console.log(description);
   return (
     <div>
       {/* Embed Preview text section */}

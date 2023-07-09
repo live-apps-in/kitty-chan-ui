@@ -45,8 +45,6 @@ const EditWelcomeEmbedTemplatePage = () => {
     }
   }, []);
 
-  console.log(template);
-
   return (
     !loading &&
     template && (

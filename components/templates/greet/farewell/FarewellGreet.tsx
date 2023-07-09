@@ -61,8 +61,6 @@ const FarewellGreet = () => {
     }
   }
 
-  console.log(greet?.farewell.templateId);
-
   useEffect(() => {
     fetchFarewellGreetTemplates();
   }, []);
@@ -78,8 +76,6 @@ const FarewellGreet = () => {
         templateId,
       },
     };
-
-    console.log(greetData);
 
     try {
       const { status, data } = await axios.patch(
@@ -126,10 +122,6 @@ const FarewellGreet = () => {
       console.log('Delete Farewell Template Error: ', error);
     }
   }
-
-  console.log(templates);
-  console.log(currentTemplateId);
-  console.log(greet);
 
   return (
     <div className='relative min-h-screen text-white'>

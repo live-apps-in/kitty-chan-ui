@@ -52,8 +52,6 @@ const EmbedBuilder = ({ target, templateToEdit }: EmbedBuilderProps) => {
     templateToEdit?.embed.footer?.icon_url || ''
   );
 
-  console.log(templateToEdit);
-
   return (
     <div className='grid grid-cols-1 place-items-start gap-10 md:grid-cols-2'>
       <div className='order-2 w-full bg-kittyFormBg px-6 py-10 md:order-1'>
