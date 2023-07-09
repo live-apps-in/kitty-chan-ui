@@ -2,31 +2,57 @@
 import React, { useState } from 'react';
 import EmbedBuilderForm from './EmbedBuilderForm';
 import EmbedBuilderPreview from './EmbedBuilderPreview';
+import { EmbedTemplateDto } from '@/types/Greet';
 
 interface EmbedBuilderProps {
   target: string;
+  templateToEdit?: EmbedTemplateDto;
 }
 
-const EmbedBuilder = ({ target }: EmbedBuilderProps) => {
-  const [title, setTitle] = useState<string>('');
-  const [description, setDescription] = useState<string>('');
-  const [embedURL, setEmbedURL] = useState<string>('');
-  const [color, setColor] = useState<string>('#000000');
+const EmbedBuilder = ({ target, templateToEdit }: EmbedBuilderProps) => {
+  const [title, setTitle] = useState<string>(templateToEdit?.embed.title || '');
+  const [description, setDescription] = useState<string>(
+    templateToEdit?.embed.description || ''
+  );
+  const [embedURL, setEmbedURL] = useState<string>(
+    templateToEdit?.embed.url || ''
+  );
+  const [color, setColor] = useState<string>(
+    `#${templateToEdit?.embed.color?.slice(2)}` || '#000000'
+  );
   const [fields, setFields] = useState<
-    [{ name: string; value: string; inline: boolean }]
-  >([{ name: '', value: '', inline: true }]);
-  const [tumbnailURL, setTumbnailURL] = useState<string>('');
-  const [image, setImage] = useState<string>('');
-  const [timestamp, setTimestamp] = useState<string>('');
+    Array<{ name: string; value: string; inline: boolean }>
+  >(templateToEdit?.embed.fields || [{ name: '', value: '', inline: true }]);
+  const [tumbnailURL, setTumbnailURL] = useState<string>(
+    templateToEdit?.embed.thumbnail?.url || ''
+  );
+  const [image, setImage] = useState<string>(
+    templateToEdit?.embed.image?.url || ''
+  );
+  const [timestamp, setTimestamp] = useState<string>(
+    templateToEdit?.embed.timestamp || ''
+  );
 
   // Author
-  const [authorName, setAuthorName] = useState<string>('');
-  const [authorURL, setAuthorURL] = useState<string>('');
-  const [authorIconURL, setAuthorIconURL] = useState<string>('');
+  const [authorName, setAuthorName] = useState<string>(
+    templateToEdit?.embed.author?.name || ''
+  );
+  const [authorURL, setAuthorURL] = useState<string>(
+    templateToEdit?.embed.author?.url || ''
+  );
+  const [authorIconURL, setAuthorIconURL] = useState<string>(
+    templateToEdit?.embed.author?.icon_url || ''
+  );
 
   // Footer
-  const [footerText, setFooterText] = useState<string>('');
-  const [footerIconURL, setFooterIconURL] = useState<string>('');
+  const [footerText, setFooterText] = useState<string>(
+    templateToEdit?.embed.footer?.text || ''
+  );
+  const [footerIconURL, setFooterIconURL] = useState<string>(
+    templateToEdit?.embed.footer?.icon_url || ''
+  );
+
+  console.log(templateToEdit);
 
   return (
     <div className='grid grid-cols-1 place-items-start gap-10 md:grid-cols-2'>
@@ -59,6 +85,7 @@ const EmbedBuilder = ({ target }: EmbedBuilderProps) => {
           footerIconURL={footerIconURL}
           setFooterIconURL={setFooterIconURL}
           target={target}
+          templateToEdit={templateToEdit}
         />
       </div>
       <div className='top-0 order-1 w-full bg-kittyFormBg p-4 md:sticky md:order-2'>

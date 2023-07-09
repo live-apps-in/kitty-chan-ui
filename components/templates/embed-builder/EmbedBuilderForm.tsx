@@ -6,7 +6,7 @@ import { SketchPicker } from 'react-color';
 import { AiOutlineCloseCircle } from 'react-icons/ai';
 import { CiCirclePlus } from 'react-icons/ci';
 import { motion } from 'framer-motion';
-import { TemplateType } from '@/types/Greet';
+import { EmbedTemplateDto, TemplateType } from '@/types/Greet';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import { useAppSelector } from '@/redux/store';
@@ -40,6 +40,7 @@ interface EmbedBuilderFormProps {
   footerIconURL: string;
   setFooterIconURL: React.Dispatch<React.SetStateAction<string>>;
   target: string;
+  templateToEdit?: EmbedTemplateDto;
 }
 
 const EmbedBuilderForm = ({
@@ -70,6 +71,7 @@ const EmbedBuilderForm = ({
   footerIconURL,
   setFooterIconURL,
   target,
+  templateToEdit,
 }: EmbedBuilderFormProps) => {
   const [displayColorPicker, setDisplayColorPicker] = useState(false);
   const handleColorChange = (newColor: any) => {
@@ -138,7 +140,7 @@ const EmbedBuilderForm = ({
       title,
       description,
       url: embedURL,
-      color: `0x${parseInt(color.replace('#', ''), 16).toString(16)}`,
+      color: `0x${color.slice(1)}`,
       fields,
       image: {
         url: image,
@@ -157,28 +159,52 @@ const EmbedBuilderForm = ({
         icon_url: footerIconURL,
       },
     };
+
     const templateData = {
       name: 'Embed Template Name',
       type: TemplateType.EMBED,
       target, // farewell or welcome
       embed: embedData,
     };
-    try {
-      const { status } = await axios.post(
-        `${process.env.NEXT_PUBLIC_KITTY_CHAN_API}/template`,
-        templateData,
-        {
-          headers: {
-            Authorization: `Bearer ${Cookies.get('accessToken')}`,
-            'x-guild-id': currentGuildId,
-          },
+
+    if (templateToEdit) {
+      // Update Embed Template
+      try {
+        const { status } = await axios.patch(
+          `${process.env.NEXT_PUBLIC_KITTY_CHAN_API}/template/${templateToEdit._id}`,
+          templateData,
+          {
+            headers: {
+              Authorization: `Bearer ${Cookies.get('accessToken')}`,
+              'x-guild-id': currentGuildId,
+            },
+          }
+        );
+        if (status === 200) {
+          router.push(`/dashboard/${currentGuildId}/greet/${target}`);
         }
-      );
-      if (status === 201) {
-        router.push(`/dashboard/${currentGuildId}/greet/${target}`);
+      } catch (error) {
+        console.log('Embed Template Update Error: ', error);
       }
-    } catch (error) {
-      console.log('Plain Template Create Error: ', error);
+    } else {
+      // Create Embed Template
+      try {
+        const { status } = await axios.post(
+          `${process.env.NEXT_PUBLIC_KITTY_CHAN_API}/template`,
+          templateData,
+          {
+            headers: {
+              Authorization: `Bearer ${Cookies.get('accessToken')}`,
+              'x-guild-id': currentGuildId,
+            },
+          }
+        );
+        if (status === 201) {
+          router.push(`/dashboard/${currentGuildId}/greet/${target}`);
+        }
+      } catch (error) {
+        console.log('Embed Template Create Error: ', error);
+      }
     }
   };
 
@@ -362,8 +388,8 @@ const EmbedBuilderForm = ({
           </div>
         </div>
       </div>
-      <button className='my-4 h-8 w-20 rounded-md bg-[#f5dea3] text-sm tracking-wide'>
-        Save
+      <button className='my-4 h-8 w-20 rounded-md bg-[#f5dea3] text-sm tracking-wide float-right'>
+        {templateToEdit ? 'Update' : 'Create'}
       </button>
     </form>
   );

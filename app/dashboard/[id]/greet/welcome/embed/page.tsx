@@ -2,7 +2,7 @@ import EmbedBuilder from '@/components/templates/embed-builder/EmbedBuilder';
 import DashboardLayout from '@/layouts/DashboardLayout';
 import { Target } from '@/types/Greet';
 
-const CreateEmbedTemplateFormPage = () => {
+const CreateWelcomeEmbedTemplatePage = () => {
   return (
     <DashboardLayout>
       <EmbedBuilder target={Target.WELCOME} />
@@ -10,4 +10,4 @@ const CreateEmbedTemplateFormPage = () => {
   );
 };
 
-export default CreateEmbedTemplateFormPage;
+export default CreateWelcomeEmbedTemplatePage;

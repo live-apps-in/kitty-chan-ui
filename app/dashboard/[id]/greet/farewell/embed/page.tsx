@@ -2,7 +2,7 @@ import EmbedBuilder from '@/components/templates/embed-builder/EmbedBuilder';
 import DashboardLayout from '@/layouts/DashboardLayout';
 import { Target } from '@/types/Greet';
 
-const EmbedTemplateFormPage = () => {
+const CreateFarewellEmbedTemplatePage = () => {
   return (
     <DashboardLayout>
       <EmbedBuilder target={Target.FAREWELL} />
@@ -10,4 +10,4 @@ const EmbedTemplateFormPage = () => {
   );
 };
 
-export default EmbedTemplateFormPage;
+export default CreateFarewellEmbedTemplatePage;

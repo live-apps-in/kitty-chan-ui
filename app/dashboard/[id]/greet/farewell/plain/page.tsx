@@ -3,7 +3,7 @@ import DashboardLayout from '@/layouts/DashboardLayout';
 import { Target } from '@/types/Greet';
 import React from 'react';
 
-const FarewellPlainTemplateFormPage = () => {
+const CreateFarewellPlainTemplatePage = () => {
   return (
     <DashboardLayout>
       <PlainMessage target={Target.FAREWELL} />
@@ -11,4 +11,4 @@ const FarewellPlainTemplateFormPage = () => {
   );
 };
 
-export default FarewellPlainTemplateFormPage;
+export default CreateFarewellPlainTemplatePage;

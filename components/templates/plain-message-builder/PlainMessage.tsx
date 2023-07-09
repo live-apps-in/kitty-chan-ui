@@ -11,7 +11,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 
 interface PlainMessageProps {
   target: string;
-  templateToEdit: PlainTemplateDto;
+  templateToEdit?: PlainTemplateDto;
 }
 
 const FormSchema = z.object({
@@ -31,8 +31,8 @@ const PlainMessage = ({ target, templateToEdit }: PlainMessageProps) => {
   } = useForm<FormSchemaType>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      name: templateToEdit.name || '',
-      message: templateToEdit.content || '',
+      name: templateToEdit?.name || '',
+      message: templateToEdit?.content || '',
     },
   });
 

@@ -8,7 +8,7 @@ import Cookies from 'js-cookie';
 import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
-const EditEmbedTemplatePage = () => {
+const EditWelcomePlainTemplatePage = () => {
   const { templateId } = useParams();
   const [template, setTemplate] = useState<PlainTemplateDto>();
   const [loading, setLoading] = useState(false);
@@ -55,4 +55,4 @@ const EditEmbedTemplatePage = () => {
   );
 };
 
-export default EditEmbedTemplatePage;
+export default EditWelcomePlainTemplatePage;

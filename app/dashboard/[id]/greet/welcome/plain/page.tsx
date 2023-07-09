@@ -2,7 +2,7 @@ import PlainMessage from '@/components/templates/plain-message-builder/PlainMess
 import DashboardLayout from '@/layouts/DashboardLayout';
 import { Target } from '@/types/Greet';
 
-const WelcomePlainTemplateFormPage = () => {
+const CreateWelcomePlainTemplatePage = () => {
   return (
     <DashboardLayout>
       <PlainMessage target={Target.WELCOME} />
@@ -10,4 +10,4 @@ const WelcomePlainTemplateFormPage = () => {
   );
 };
 
-export default WelcomePlainTemplateFormPage;
+export default CreateWelcomePlainTemplatePage;

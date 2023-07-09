@@ -1,16 +1,16 @@
 'use client';
-import PlainMessage from '@/components/templates/plain-message-builder/PlainMessage';
+import EmbedBuilder from '@/components/templates/embed-builder/EmbedBuilder';
 import DashboardLayout from '@/layouts/DashboardLayout';
 import { useAppSelector } from '@/redux/store';
-import { Target, PlainTemplateDto } from '@/types/Greet';
+import { EmbedTemplateDto, Target } from '@/types/Greet';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
-const EditFarewellPlainTemplatePage = () => {
+const EditFarewellEmbedTemplatePage = () => {
   const { templateId } = useParams();
-  const [template, setTemplate] = useState<PlainTemplateDto>();
+  const [template, setTemplate] = useState<EmbedTemplateDto>();
   const [loading, setLoading] = useState(false);
 
   const { currentGuildId } = useAppSelector(
@@ -49,10 +49,10 @@ const EditFarewellPlainTemplatePage = () => {
     !loading &&
     template && (
       <DashboardLayout>
-        <PlainMessage target={Target.FAREWELL} templateToEdit={template} />
+        <EmbedBuilder target={Target.FAREWELL} templateToEdit={template} />
       </DashboardLayout>
     )
   );
 };
 
-export default EditFarewellPlainTemplatePage;
+export default EditFarewellEmbedTemplatePage;
