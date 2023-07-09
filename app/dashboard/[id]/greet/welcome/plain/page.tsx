@@ -1,8 +1,13 @@
+import PlainMessage from '@/components/templates/plain-message-builder/PlainMessage';
 import DashboardLayout from '@/layouts/DashboardLayout';
-import React from 'react';
+import { Target } from '@/types/Greet';
 
-const PlainTemplateFormPage = () => {
-  return <DashboardLayout>PlainTemplateEditPage</DashboardLayout>;
+const WelcomePlainTemplateFormPage = () => {
+  return (
+    <DashboardLayout>
+      <PlainMessage target={Target.WELCOME} />
+    </DashboardLayout>
+  );
 };
 
-export default PlainTemplateFormPage;
+export default WelcomePlainTemplateFormPage;

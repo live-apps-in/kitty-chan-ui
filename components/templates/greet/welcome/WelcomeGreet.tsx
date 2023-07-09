@@ -26,13 +26,6 @@ const WelcomeGreet = () => {
 
   const dispatch = useDispatch<AppDispatch>();
 
-  // const templateData = {
-  //   name: 'Welcome message',
-  //   type: 'embed',
-  //   target: 'welcome',
-  //   embed: 'This is embed template',
-  // };
-
   async function fetchWelcomeGreetTemplates() {
     try {
       setLoading(true);
@@ -106,7 +99,7 @@ const WelcomeGreet = () => {
   console.log(greet);
 
   return (
-    <div className='relative h-screen text-white'>
+    <div className='relative min-h-screen text-white'>
       <h1 className='text-2xl'>Welcome Greet</h1>
 
       {/* Choose Template Type Modal */}
@@ -135,54 +128,10 @@ const WelcomeGreet = () => {
             return (
               <div
                 key={template._id}
-                className='relative flex h-auto w-auto items-center gap-3 rounded-md border-[1px] border-[#fff0c6] bg-kittyNeutralBlack px-4 py-4 shadow-xl'
+                className='relative flex flex-col h-auto w-auto  gap-3 rounded-md border-[1px] border-[#fff0c6] bg-kittyNeutralBlack px-4 py-4 shadow-xl'
               >
-                <Image
-                  className='h-10 w-auto rounded-full'
-                  src='/assets/images/kitty-chan-logo.jpg'
-                  alt='kitty chan logo'
-                  width={500}
-                  height={500}
-                />
-                <div>
-                  <div className='flex items-center gap-2'>
-                    <h2 className='text-sm  tracking-wider text-[#a87ed9]'>
-                      kitty chan
-                    </h2>
-                    <span className='rounded-sm bg-[#5b65ea] px-[4px] py-[2px] text-[10px]  tracking-tighter text-white'>
-                      BOT{' '}
-                    </span>
-                  </div>
-                  <p>{template.content}</p>
-                  <p>{template._id}</p>
-                </div>
-                <Link
-                  href={`/dashboard/${currentGuildId}/greet/welcome/${template.type}`}
-                  className='absolute right-8 top-3 flex cursor-pointer items-center gap-2'
-                >
-                  <FiEdit3 size={20} className=' text-white' />
-                  <span className='text-sm'>Edit</span>
-                </Link>
-              </div>
-            );
-          })}
-        </div>
-      )}
-
-      {/* Other Templates */}
-      <div className='py-4'>
-        <h2 className='mb-4 text-lg '>Other Templates</h2>
-        {loading ? (
-          <p>Loading...Please wait!</p>
-        ) : (
-          <div className='space-y-4'>
-            {templates?.map((template: TemplateDto) => {
-              if (template._id === currentTemplateId) return null;
-              return (
-                <div
-                  key={template._id}
-                  className='relative flex h-auto w-auto items-center gap-3 rounded-md bg-kittyNeutralBlack px-4 py-4'
-                >
+                <h2 className='text-md'>{template.name}</h2>
+                <div className='flex items-start gap-3'>
                   <Image
                     className='h-10 w-auto rounded-full'
                     src='/assets/images/kitty-chan-logo.jpg'
@@ -202,21 +151,74 @@ const WelcomeGreet = () => {
                     <p>{template.content}</p>
                     <p>{template._id}</p>
                   </div>
-                  <div className='absolute right-8 top-3 flex cursor-pointer items-center gap-8'>
-                    <Link
-                      href={`/dashboard/${currentGuildId}/greet/welcome/${template.type}`}
-                      className='flex cursor-pointer items-center gap-2'
-                    >
-                      <FiEdit3 size={20} className=' text-white' />
-                      <span className='text-sm'>Edit</span>
-                    </Link>
-                    <button
-                      onClick={() => handleApplyTemplate(template._id)}
-                      className='flex items-center gap-2'
-                    >
-                      <LuMousePointerClick size={20} className=' text-white' />
-                      <span className='text-sm'>Use this template</span>
-                    </button>
+                  <Link
+                    href={`/dashboard/${currentGuildId}/greet/welcome/${template.type}`}
+                    className='absolute right-8 top-3 flex cursor-pointer items-center gap-2'
+                  >
+                    <FiEdit3 size={20} className=' text-white' />
+                    <span className='text-sm'>Edit</span>
+                  </Link>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      )}
+
+      {/* Other Templates */}
+      <div className='py-4'>
+        <h2 className='mb-4 text-lg '>Other Templates</h2>
+        {loading ? (
+          <p>Loading...Please wait!</p>
+        ) : (
+          <div className='space-y-4'>
+            {templates?.map((template: TemplateDto) => {
+              if (template._id === currentTemplateId) return null;
+              return (
+                <div
+                  key={template._id}
+                  className='relative flex flex-col h-auto w-auto gap-3 rounded-md bg-kittyNeutralBlack px-4 py-4'
+                >
+                  <h2 className='text-md'>{template.name}</h2>
+                  <div className='flex items-start gap-3'>
+                    <Image
+                      className='h-10 w-auto rounded-full'
+                      src='/assets/images/kitty-chan-logo.jpg'
+                      alt='kitty chan logo'
+                      width={500}
+                      height={500}
+                    />
+                    <div>
+                      <div className='flex items-center gap-2'>
+                        <h2 className='text-sm  tracking-wider text-[#a87ed9]'>
+                          kitty chan
+                        </h2>
+                        <span className='rounded-sm bg-[#5b65ea] px-[4px] py-[2px] text-[10px]  tracking-tighter text-white'>
+                          BOT{' '}
+                        </span>
+                      </div>
+                      <p>{template.content}</p>
+                      <p>{template._id}</p>
+                    </div>
+                    <div className='absolute right-8 top-3 flex cursor-pointer items-center gap-8'>
+                      <Link
+                        href={`/dashboard/${currentGuildId}/greet/welcome/${template.type}`}
+                        className='flex cursor-pointer items-center gap-2'
+                      >
+                        <FiEdit3 size={20} className=' text-white' />
+                        <span className='text-sm'>Edit</span>
+                      </Link>
+                      <button
+                        onClick={() => handleApplyTemplate(template._id)}
+                        className='flex items-center gap-2'
+                      >
+                        <LuMousePointerClick
+                          size={20}
+                          className=' text-white'
+                        />
+                        <span className='text-sm'>Use this template</span>
+                      </button>
+                    </div>
                   </div>
                 </div>
               );
