@@ -26,7 +26,6 @@ const WelcomeGreet = () => {
   const { greet } = useAppSelector((state) => state.greetReducer.value);
 
   const dispatch = useDispatch<AppDispatch>();
-  console.log(greet);
 
   async function fetchWelcomeGreetTemplates() {
     try {

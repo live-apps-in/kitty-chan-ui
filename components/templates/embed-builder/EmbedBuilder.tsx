@@ -18,7 +18,7 @@ const EmbedBuilder = ({ target, templateToEdit }: EmbedBuilderProps) => {
     templateToEdit?.embed.url || ''
   );
   const [color, setColor] = useState<string>(
-    `#${templateToEdit?.embed.color?.slice(2)}` || '#000000'
+    (templateToEdit && `#${templateToEdit.embed.color.slice(2)}`) || '#000000'
   );
   const [fields, setFields] = useState<
     Array<{ name: string; value: string; inline: boolean }>
