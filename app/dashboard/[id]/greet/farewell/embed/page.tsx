@@ -1,11 +1,11 @@
 import EmbedBuilder from '@/components/templates/embed-builder/EmbedBuilder';
 import DashboardLayout from '@/layouts/DashboardLayout';
-import React from 'react';
+import { Target } from '@/types/Greet';
 
 const EmbedTemplateFormPage = () => {
   return (
     <DashboardLayout>
-      <EmbedBuilder />
+      <EmbedBuilder target={Target.FAREWELL} />
     </DashboardLayout>
   );
 };

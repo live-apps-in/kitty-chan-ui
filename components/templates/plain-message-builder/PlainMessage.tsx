@@ -1,6 +1,6 @@
 'use client';
 import { useAppSelector } from '@/redux/store';
-import { TemplateType } from '@/types/Greet';
+import { PlainTemplateDto, TemplateType } from '@/types/Greet';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import Image from 'next/image';
@@ -11,6 +11,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 
 interface PlainMessageProps {
   target: string;
+  templateToEdit: PlainTemplateDto;
 }
 
 const FormSchema = z.object({
@@ -20,7 +21,7 @@ const FormSchema = z.object({
 
 type FormSchemaType = z.infer<typeof FormSchema>;
 
-const PlainMessage = ({ target }: PlainMessageProps) => {
+const PlainMessage = ({ target, templateToEdit }: PlainMessageProps) => {
   const {
     register,
     handleSubmit,
@@ -29,6 +30,10 @@ const PlainMessage = ({ target }: PlainMessageProps) => {
     formState: { errors, isSubmitting },
   } = useForm<FormSchemaType>({
     resolver: zodResolver(FormSchema),
+    defaultValues: {
+      name: templateToEdit.name || '',
+      message: templateToEdit.content || '',
+    },
   });
 
   const message = watch('message');
@@ -46,23 +51,46 @@ const PlainMessage = ({ target }: PlainMessageProps) => {
       target, // farewell or welcome
       content: data.message,
     };
-    try {
-      const { status } = await axios.post(
-        `${process.env.NEXT_PUBLIC_KITTY_CHAN_API}/template`,
-        templateData,
-        {
-          headers: {
-            Authorization: `Bearer ${Cookies.get('accessToken')}`,
-            'x-guild-id': currentGuildId,
-          },
+
+    if (templateToEdit) {
+      // Update Template
+      try {
+        const { status } = await axios.patch(
+          `${process.env.NEXT_PUBLIC_KITTY_CHAN_API}/template/${templateToEdit._id}`,
+          templateData,
+          {
+            headers: {
+              Authorization: `Bearer ${Cookies.get('accessToken')}`,
+              'x-guild-id': currentGuildId,
+            },
+          }
+        );
+        if (status === 200) {
+          router.push(`/dashboard/${currentGuildId}/greet/${target}`);
         }
-      );
-      if (status === 201) {
-        reset();
-        router.push(`/dashboard/${currentGuildId}/greet/${target}`);
+      } catch (error) {
+        console.log('Plain Template Update Error: ', error);
       }
-    } catch (error) {
-      console.log('Plain Template Create Error: ', error);
+    } else {
+      // Create Template
+      try {
+        const { status } = await axios.post(
+          `${process.env.NEXT_PUBLIC_KITTY_CHAN_API}/template`,
+          templateData,
+          {
+            headers: {
+              Authorization: `Bearer ${Cookies.get('accessToken')}`,
+              'x-guild-id': currentGuildId,
+            },
+          }
+        );
+        if (status === 201) {
+          reset();
+          router.push(`/dashboard/${currentGuildId}/greet/${target}`);
+        }
+      } catch (error) {
+        console.log('Plain Template Create Error: ', error);
+      }
     }
   };
 
@@ -101,7 +129,7 @@ const PlainMessage = ({ target }: PlainMessageProps) => {
             disabled={isSubmitting}
             className='bg-[#f8e5af] rounded-md px-4 py-2 float-right mt-4 disabled:opacity-75'
           >
-            Create
+            {templateToEdit ? 'Update' : 'Create'}
           </button>
         </form>
       </div>

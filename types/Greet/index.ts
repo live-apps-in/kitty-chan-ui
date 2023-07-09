@@ -22,7 +22,7 @@ export interface GreetDto {
   };
 }
 
-export interface TemplateDto {
+export interface PlainTemplateDto {
   _id: string;
   name: string;
   type: TemplateType;

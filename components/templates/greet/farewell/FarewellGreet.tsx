@@ -2,7 +2,7 @@
 import ChooseTemplateTypeModal from '@/components/widgets/ChooseTemplateTypeModal';
 import { setGreet } from '@/redux/slices/greetSlice';
 import { AppDispatch, useAppSelector } from '@/redux/store';
-import { TemplateDto } from '@/types/Greet';
+import { PlainTemplateDto } from '@/types/Greet';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import Image from 'next/image';
@@ -14,7 +14,7 @@ import { MdDeleteSweep } from 'react-icons/md';
 import { useDispatch } from 'react-redux';
 
 const FarewellGreet = () => {
-  const [templates, setTemplates] = useState<TemplateDto[]>([]);
+  const [templates, setTemplates] = useState<PlainTemplateDto[]>([]);
   const [openModal, setOpenModal] = useState(false);
   const [loading, setLoading] = useState(false);
   const [currentTemplateId, setCurrentTemplateId] = useState<string>();
@@ -156,7 +156,7 @@ const FarewellGreet = () => {
         <p>Loading...Please wait!</p>
       ) : (
         <div className='space-y-4'>
-          {templates?.map((template: TemplateDto) => {
+          {templates?.map((template: PlainTemplateDto) => {
             if (template._id !== currentTemplateId) return null;
             return (
               <div
@@ -182,10 +182,10 @@ const FarewellGreet = () => {
                       </span>
                     </div>
                     <p>{template.content}</p>
-                    <p>{template._id}</p>
+                    <p>Type:{template.type}</p>
                   </div>
                   <Link
-                    href={`/dashboard/${currentGuildId}/greet/farewell/${template.type}`}
+                    href={`/dashboard/${currentGuildId}/greet/farewell/${template.type}/${template._id}`}
                     className='absolute right-8 top-3 flex cursor-pointer items-center gap-2'
                   >
                     <FiEdit3 size={20} className=' text-white' />
@@ -205,7 +205,7 @@ const FarewellGreet = () => {
           <p>Loading...Please wait!</p>
         ) : (
           <div className='space-y-4'>
-            {templates?.map((template: TemplateDto) => {
+            {templates?.map((template: PlainTemplateDto) => {
               if (template._id === currentTemplateId) return null;
               return (
                 <div
@@ -231,12 +231,12 @@ const FarewellGreet = () => {
                         </span>
                       </div>
                       <p>{template.content}</p>
-                      <p>{template._id}</p>
+                      <p>Type:{template.type}</p>
                     </div>
                     <div className='absolute right-8 top-3 flex cursor-pointer items-center gap-8'>
                       {/* Edit Button */}
                       <Link
-                        href={`/dashboard/${currentGuildId}/greet/farewell/${template.type}`}
+                        href={`/dashboard/${currentGuildId}/greet/farewell/${template.type}/${template._id}`}
                         className='flex cursor-pointer items-center gap-2'
                       >
                         <FiEdit3 size={20} className=' text-white' />

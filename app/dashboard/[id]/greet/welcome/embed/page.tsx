@@ -1,13 +1,13 @@
 import EmbedBuilder from '@/components/templates/embed-builder/EmbedBuilder';
 import DashboardLayout from '@/layouts/DashboardLayout';
-import React from 'react';
+import { Target } from '@/types/Greet';
 
-const EmbedTemplateFormPage = () => {
+const CreateEmbedTemplateFormPage = () => {
   return (
     <DashboardLayout>
-      <EmbedBuilder />
+      <EmbedBuilder target={Target.WELCOME} />
     </DashboardLayout>
   );
 };
 
-export default EmbedTemplateFormPage;
+export default CreateEmbedTemplateFormPage;

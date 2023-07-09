@@ -6,6 +6,11 @@ import { SketchPicker } from 'react-color';
 import { AiOutlineCloseCircle } from 'react-icons/ai';
 import { CiCirclePlus } from 'react-icons/ci';
 import { motion } from 'framer-motion';
+import { TemplateType } from '@/types/Greet';
+import axios from 'axios';
+import Cookies from 'js-cookie';
+import { useAppSelector } from '@/redux/store';
+import { useRouter } from 'next/navigation';
 
 interface EmbedBuilderFormProps {
   title: string;
@@ -34,6 +39,7 @@ interface EmbedBuilderFormProps {
   setFooterText: React.Dispatch<React.SetStateAction<string>>;
   footerIconURL: string;
   setFooterIconURL: React.Dispatch<React.SetStateAction<string>>;
+  target: string;
 }
 
 const EmbedBuilderForm = ({
@@ -63,11 +69,18 @@ const EmbedBuilderForm = ({
   setFooterText,
   footerIconURL,
   setFooterIconURL,
+  target,
 }: EmbedBuilderFormProps) => {
   const [displayColorPicker, setDisplayColorPicker] = useState(false);
   const handleColorChange = (newColor: any) => {
     setColor(newColor.hex);
   };
+
+  const { currentGuildId } = useAppSelector(
+    (state) => state.guildReducer.value
+  );
+
+  const router = useRouter();
 
   const handleFieldChange = (
     index: number,
@@ -119,9 +132,9 @@ const EmbedBuilderForm = ({
     setFields(updatedFields);
   };
 
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const data = {
+    const embedData = {
       title,
       description,
       url: embedURL,
@@ -144,7 +157,29 @@ const EmbedBuilderForm = ({
         icon_url: footerIconURL,
       },
     };
-    console.log(data);
+    const templateData = {
+      name: 'Embed Template Name',
+      type: TemplateType.EMBED,
+      target, // farewell or welcome
+      embed: embedData,
+    };
+    try {
+      const { status } = await axios.post(
+        `${process.env.NEXT_PUBLIC_KITTY_CHAN_API}/template`,
+        templateData,
+        {
+          headers: {
+            Authorization: `Bearer ${Cookies.get('accessToken')}`,
+            'x-guild-id': currentGuildId,
+          },
+        }
+      );
+      if (status === 201) {
+        router.push(`/dashboard/${currentGuildId}/greet/${target}`);
+      }
+    } catch (error) {
+      console.log('Plain Template Create Error: ', error);
+    }
   };
 
   return (

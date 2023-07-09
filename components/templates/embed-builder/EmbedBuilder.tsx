@@ -3,7 +3,11 @@ import React, { useState } from 'react';
 import EmbedBuilderForm from './EmbedBuilderForm';
 import EmbedBuilderPreview from './EmbedBuilderPreview';
 
-const EmbedBuilder = () => {
+interface EmbedBuilderProps {
+  target: string;
+}
+
+const EmbedBuilder = ({ target }: EmbedBuilderProps) => {
   const [title, setTitle] = useState<string>('');
   const [description, setDescription] = useState<string>('');
   const [embedURL, setEmbedURL] = useState<string>('');
@@ -54,6 +58,7 @@ const EmbedBuilder = () => {
           setAuthorIconURL={setAuthorIconURL}
           footerIconURL={footerIconURL}
           setFooterIconURL={setFooterIconURL}
+          target={target}
         />
       </div>
       <div className='top-0 order-1 w-full bg-kittyFormBg p-4 md:sticky md:order-2'>
