@@ -12,12 +12,15 @@ import { FiEdit3 } from 'react-icons/fi';
 import { MdDeleteSweep } from 'react-icons/md';
 import { LuMousePointerClick } from 'react-icons/lu';
 import { useDispatch } from 'react-redux';
+import ToggleButton from '@/components/widgets/ToggleButton';
 
 const WelcomeGreet = () => {
   const [templates, setTemplates] = useState<PlainTemplateDto[]>([]);
   const [openModal, setOpenModal] = useState(false);
   const [loading, setLoading] = useState(false);
   const [currentTemplateId, setCurrentTemplateId] = useState<string>();
+
+  const [enabled, setEnabled] = useState<any>(false);
 
   const { currentGuildId } = useAppSelector(
     (state) => state.guildReducer.value
@@ -46,6 +49,7 @@ const WelcomeGreet = () => {
         setTemplates(data);
         // Set Current templateId
         setCurrentTemplateId(greet?.welcome.templateId);
+        setEnabled(greet?.welcome.isActive);
       } else {
         setTemplates([]);
       }
@@ -60,7 +64,6 @@ const WelcomeGreet = () => {
 
   async function handleApplyTemplate(templateId: string) {
     // Keeping other greet data (i.e farewell) as it is & updating only welcome templateId
-
     const greetData = {
       isActive: greet?.isActive,
       farewell: { ...greet?.farewell },
@@ -117,9 +120,49 @@ const WelcomeGreet = () => {
     }
   }
 
+  // Update isActive of Welcome
+  async function updateGreet(isActive: boolean) {
+    const greetData = {
+      ...greet,
+      welcome: { ...greet?.welcome, isActive },
+    };
+
+    try {
+      const { data, status } = await axios.patch(
+        `${process.env.NEXT_PUBLIC_KITTY_CHAN_API}/greet`,
+        greetData,
+        {
+          headers: {
+            Authorization: `Bearer ${Cookies.get('accessToken')}`,
+            'x-guild-id': currentGuildId,
+          },
+        }
+      );
+
+      if (status === 200) {
+        Cookies.set('greet-details', JSON.stringify(data));
+        dispatch(setGreet(data));
+        setEnabled(data.welcome.isActive);
+      }
+    } catch (error) {
+      console.log('Greet Error: ', error);
+    }
+  }
+
   return (
     <div className='relative min-h-screen text-white'>
       <h1 className='text-2xl'>Welcome Greet</h1>
+
+      <div className='flex items-center gap-2 my-4'>
+        <ToggleButton
+          enabled={enabled}
+          setEnabled={setEnabled}
+          updateGreet={updateGreet}
+        />
+        <span className='text-sm'>
+          Welcome Greet {enabled ? 'Enabled' : 'Disabled'}
+        </span>
+      </div>
 
       {/* Choose Template Type Modal */}
       <ChooseTemplateTypeModal

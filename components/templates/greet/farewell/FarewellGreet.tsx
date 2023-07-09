@@ -1,5 +1,6 @@
 'use client';
 import ChooseTemplateTypeModal from '@/components/widgets/ChooseTemplateTypeModal';
+import ToggleButton from '@/components/widgets/ToggleButton';
 import { setGreet } from '@/redux/slices/greetSlice';
 import { AppDispatch, useAppSelector } from '@/redux/store';
 import { PlainTemplateDto } from '@/types/Greet';
@@ -19,6 +20,8 @@ const FarewellGreet = () => {
   const [loading, setLoading] = useState(false);
   const [currentTemplateId, setCurrentTemplateId] = useState<string>();
 
+  const [enabled, setEnabled] = useState<any>(false);
+
   const { currentGuildId } = useAppSelector(
     (state) => state.guildReducer.value
   );
@@ -26,13 +29,6 @@ const FarewellGreet = () => {
   const { greet } = useAppSelector((state) => state.greetReducer.value);
 
   const dispatch = useDispatch<AppDispatch>();
-
-  // const templateData = {
-  //   name: 'Farewell message',
-  //   type: 'embed',
-  //   target: 'farewell',
-  //   embed: 'embed object',
-  // };
 
   async function fetchFarewellGreetTemplates() {
     try {
@@ -53,6 +49,7 @@ const FarewellGreet = () => {
         setTemplates(data);
         // Set Current templateId
         setCurrentTemplateId(greet?.farewell.templateId);
+        setEnabled(greet?.farewell.isActive);
       } else {
         setTemplates([]);
       }
@@ -125,9 +122,49 @@ const FarewellGreet = () => {
     }
   }
 
+  // Update isActive of Farewell
+  async function updateGreet(isActive: boolean) {
+    const greetData = {
+      ...greet,
+      farewell: { ...greet?.farewell, isActive },
+    };
+
+    try {
+      const { data, status } = await axios.patch(
+        `${process.env.NEXT_PUBLIC_KITTY_CHAN_API}/greet`,
+        greetData,
+        {
+          headers: {
+            Authorization: `Bearer ${Cookies.get('accessToken')}`,
+            'x-guild-id': currentGuildId,
+          },
+        }
+      );
+
+      if (status === 200) {
+        Cookies.set('greet-details', JSON.stringify(data));
+        dispatch(setGreet(data));
+        setEnabled(data.farewell.isActive);
+      }
+    } catch (error) {
+      console.log('Greet Error: ', error);
+    }
+  }
+
   return (
     <div className='relative min-h-screen text-white'>
       <h1 className='text-2xl'>Farewell Greet</h1>
+
+      <div className='flex items-center gap-2 my-4'>
+        <ToggleButton
+          enabled={enabled}
+          setEnabled={setEnabled}
+          updateGreet={updateGreet}
+        />
+        <span className='text-sm'>
+          Farewell Greet {enabled ? 'Enabled' : 'Disabled'}
+        </span>
+      </div>
 
       {/* Choose Template Type Modal */}
       <ChooseTemplateTypeModal
