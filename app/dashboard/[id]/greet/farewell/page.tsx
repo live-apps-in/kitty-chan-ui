@@ -3,7 +3,7 @@ import DashboardLayout from '@/layouts/DashboardLayout';
 import React from 'react';
 
 export const metadata = {
-  title: 'Welcome Greet',
+  title: 'Farewell Greet',
 };
 
 const FarewellGreetPage = () => {

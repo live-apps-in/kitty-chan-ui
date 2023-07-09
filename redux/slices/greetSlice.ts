@@ -1,4 +1,3 @@
-import { GuildDto } from '@/types/AllGuilds';
 import { GreetDto } from '@/types/Greet';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import Cookies from 'js-cookie';

@@ -1,7 +1,8 @@
 'use client';
 import ChooseTemplateTypeModal from '@/components/widgets/ChooseTemplateTypeModal';
-import { useAppSelector } from '@/redux/store';
-import { GreetDto, TemplateDto } from '@/types/Greet';
+import { setGreet } from '@/redux/slices/greetSlice';
+import { AppDispatch, useAppSelector } from '@/redux/store';
+import { TemplateDto } from '@/types/Greet';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import Image from 'next/image';
@@ -9,10 +10,10 @@ import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 import { FiEdit3 } from 'react-icons/fi';
 import { LuMousePointerClick } from 'react-icons/lu';
+import { useDispatch } from 'react-redux';
 
 const WelcomeGreet = () => {
   const [templates, setTemplates] = useState<TemplateDto[]>([]);
-  const [otherTemplates, setOtherTemplates] = useState<TemplateDto[]>([]);
   const [openModal, setOpenModal] = useState(false);
   const [loading, setLoading] = useState(false);
   const [currentTemplateId, setCurrentTemplateId] = useState<string>();
@@ -22,6 +23,8 @@ const WelcomeGreet = () => {
   );
 
   const { greet } = useAppSelector((state) => state.greetReducer.value);
+
+  const dispatch = useDispatch<AppDispatch>();
 
   // const templateData = {
   //   name: 'Welcome message',
@@ -58,7 +61,6 @@ const WelcomeGreet = () => {
   }
 
   console.log(greet?.welcome.templateId);
-  console.log(otherTemplates);
 
   useEffect(() => {
     fetchWelcomeGreetTemplates();
@@ -91,6 +93,7 @@ const WelcomeGreet = () => {
       if (status == 200) {
         // Update the greet details in cookie
         Cookies.set('greet-details', JSON.stringify(data));
+        dispatch(setGreet(data));
         setCurrentTemplateId(templateId);
       }
     } catch (error) {
@@ -103,7 +106,7 @@ const WelcomeGreet = () => {
   console.log(greet);
 
   return (
-    <div className='relative h-full text-white'>
+    <div className='relative h-screen text-white'>
       <h1 className='text-2xl'>Welcome Greet</h1>
 
       {/* Choose Template Type Modal */}
@@ -111,6 +114,7 @@ const WelcomeGreet = () => {
         open={openModal}
         setOpen={setOpenModal}
         currentGuildId={currentGuildId}
+        target='welcome'
       />
 
       {/* Create Template Btn */}
@@ -150,6 +154,7 @@ const WelcomeGreet = () => {
                     </span>
                   </div>
                   <p>{template.content}</p>
+                  <p>{template._id}</p>
                 </div>
                 <Link
                   href={`/dashboard/${currentGuildId}/greet/welcome/${template.type}`}
