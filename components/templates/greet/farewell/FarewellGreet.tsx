@@ -10,6 +10,7 @@ import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 import { FiEdit3 } from 'react-icons/fi';
 import { LuMousePointerClick } from 'react-icons/lu';
+import { MdDeleteSweep } from 'react-icons/md';
 import { useDispatch } from 'react-redux';
 
 const FarewellGreet = () => {
@@ -100,6 +101,29 @@ const FarewellGreet = () => {
       }
     } catch (error) {
       console.log('Apply Farewell Template Error: ', error);
+    }
+  }
+
+  async function handleDeleteTemplate(templateId: string) {
+    try {
+      const { status } = await axios.delete(
+        `${process.env.NEXT_PUBLIC_KITTY_CHAN_API}/template/${templateId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${Cookies.get('accessToken')}`,
+            'x-guild-id': currentGuildId,
+          },
+        }
+      );
+
+      if (status == 200) {
+        const updatedTemplates = templates.filter(
+          (template) => template._id !== templateId
+        );
+        setTemplates(updatedTemplates);
+      }
+    } catch (error) {
+      console.log('Delete Farewell Template Error: ', error);
     }
   }
 
@@ -210,6 +234,7 @@ const FarewellGreet = () => {
                       <p>{template._id}</p>
                     </div>
                     <div className='absolute right-8 top-3 flex cursor-pointer items-center gap-8'>
+                      {/* Edit Button */}
                       <Link
                         href={`/dashboard/${currentGuildId}/greet/farewell/${template.type}`}
                         className='flex cursor-pointer items-center gap-2'
@@ -217,6 +242,20 @@ const FarewellGreet = () => {
                         <FiEdit3 size={20} className=' text-white' />
                         <span className='text-sm'>Edit</span>
                       </Link>
+                      {/* Delete Button */}
+                      <button
+                        onClick={() => handleDeleteTemplate(template._id)}
+                        className='group flex cursor-pointer items-center gap-1 '
+                      >
+                        <MdDeleteSweep
+                          size={20}
+                          className=' text-white group-hover:text-red-500'
+                        />
+                        <span className='text-sm group-hover:text-red-500'>
+                          Delete
+                        </span>
+                      </button>
+                      {/* Apply Template Button */}
                       <button
                         onClick={() => handleApplyTemplate(template._id)}
                         className='flex items-center gap-2'
