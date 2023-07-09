@@ -65,6 +65,8 @@ const FarewellGreet = () => {
     fetchFarewellGreetTemplates();
   }, []);
 
+  console.log(greet);
+
   async function handleApplyTemplate(templateId: string) {
     // Keeping other greet data (i.e welcome) as it is & updating only farewell templateId
     const greetData = {

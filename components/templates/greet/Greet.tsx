@@ -1,19 +1,22 @@
 'use client';
-import { useAppSelector } from '@/redux/store';
+import { setGreet } from '@/redux/slices/greetSlice';
+import { AppDispatch, useAppSelector } from '@/redux/store';
 import { GuildDto } from '@/types/AllGuilds';
 import { GreetDto } from '@/types/Greet';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 
 const Greet = () => {
-  const [greet, setGreet] = useState<GreetDto | null>(null);
   const [currentGuild, setCurrentGuild] = useState<GuildDto>();
 
   const { currentGuildId, allGuilds } = useAppSelector(
     (state) => state.guildReducer.value
   );
+
+  const dispatch = useDispatch<AppDispatch>();
 
   async function fetchGreet() {
     try {
@@ -27,10 +30,8 @@ const Greet = () => {
         }
       );
       if (status === 200) {
-        setGreet(data);
         Cookies.set('greet-details', JSON.stringify(data));
-      } else {
-        setGreet(null);
+        dispatch(setGreet(data));
       }
     } catch (error) {
       console.log('Greet Error: ', error);
