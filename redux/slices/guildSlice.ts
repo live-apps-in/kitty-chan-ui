@@ -39,7 +39,7 @@ export const guild = createSlice({
       return {
         value: {
           ...state.value,
-          currentGuild: action.payload,
+          currentGuildId: action.payload,
         },
       };
     },

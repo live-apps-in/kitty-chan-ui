@@ -58,10 +58,13 @@ const DashboardLayout = ({
     setCurrentGuild(guilds?.[0]);
   }, []);
 
+  console.log(currentGuildId);
+  console.log(allGuilds);
+
   const navigation = [
     {
       name: 'Dashboard',
-      href: `/dashboard/${currentGuild?.guildId}`,
+      href: `/dashboard/${currentGuildId}`,
       icon: '/assets/icons/dashboard.svg',
     },
   ];
@@ -69,12 +72,12 @@ const DashboardLayout = ({
   const generals = [
     {
       name: 'greet',
-      href: `/dashboard/${currentGuild?.guildId}/greet`,
+      href: `/dashboard/${currentGuildId}/greet`,
       icon: '/assets/icons/home.svg',
     },
     {
       name: 'logs',
-      href: `/dashboard/${currentGuild?.guildId}/logs`,
+      href: `/dashboard/${currentGuildId}/logs`,
       icon: '/assets/icons/list.svg',
     },
   ];
@@ -82,22 +85,22 @@ const DashboardLayout = ({
   const features = [
     {
       name: 'Reaction Roles',
-      href: `/dashboard/${currentGuild?.guildId}/reaction-roles`,
+      href: `/dashboard/${currentGuildId}/reaction-roles`,
       icon: '/assets/icons/reaction-roles.svg',
     },
     {
       name: 'Language filters',
-      href: `/dashboard/${currentGuild?.guildId}/language-filters`,
+      href: `/dashboard/${currentGuildId}/language-filters`,
       icon: '/assets/icons/language.svg',
     },
     {
       name: 'Portal',
-      href: `/dashboard/${currentGuild?.guildId}/portal`,
+      href: `/dashboard/${currentGuildId}/portal`,
       icon: '/assets/icons/portal.svg',
     },
     {
       name: 'Hands Free',
-      href: `/dashboard/${currentGuild?.guildId}/hands-free`,
+      href: `/dashboard/${currentGuildId}/hands-free`,
       icon: '/assets/icons/hands-free.svg',
     },
   ];
