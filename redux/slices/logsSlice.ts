@@ -1,4 +1,4 @@
-import { LogsDto } from '@/types/Features';
+import { LogsDto } from '@/types/Greet';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import Cookies from 'js-cookie';
 

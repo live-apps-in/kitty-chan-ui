@@ -3,7 +3,7 @@ import ToggleButton from '@/components/widgets/ToggleButton';
 import { setLogs } from '@/redux/slices/logsSlice';
 import { AppDispatch, useAppSelector } from '@/redux/store';
 import { GuildDto } from '@/types/AllGuilds';
-import { LogsDto } from '@/types/Features';
+import { LogsDto } from '@/types/Greet';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import Link from 'next/link';
@@ -76,7 +76,7 @@ const Logger = () => {
               data.messageUpdate?.isActive === true ||
               data.messageUpdate?.isActive === false
                 ? data.messageUpdate?.isActive
-                : true,
+                : false,
             channelId: data.messageUpdate?.channelId || null,
             templateId: data.messageUpdate?.templateId || null,
           },
@@ -85,7 +85,7 @@ const Logger = () => {
               data.messageDelete?.isActive === true ||
               data.messageDelete?.isActive === false
                 ? data.messageDelete?.isActive
-                : true,
+                : false,
             channelId: data.messageDelete?.channelId || null,
             templateId: data.messageDelete?.templateId || null,
           },
@@ -94,7 +94,7 @@ const Logger = () => {
               data.memberAddRole?.isActive === true ||
               data.memberAddRole?.isActive === false
                 ? data.memberAddRole?.isActive
-                : true,
+                : false,
             channelId: data.memberAddRole?.channelId || null,
             templateId: data.memberAddRole?.templateId || null,
           },
@@ -103,7 +103,7 @@ const Logger = () => {
               data.memberRemoveRole?.isActive === true ||
               data.memberRemoveRole?.isActive === false
                 ? data.memberRemoveRole?.isActive
-                : true,
+                : false,
             channelId: data.memberRemoveRole?.channelId || null,
             templateId: data.memberRemoveRole?.templateId || null,
           },
@@ -112,7 +112,7 @@ const Logger = () => {
               data.memberNicknameUpdate?.isActive === true ||
               data.memberNicknameUpdate?.isActive === false
                 ? data.memberNicknameUpdate?.isActive
-                : true,
+                : false,
             channelId: data.memberNicknameUpdate?.channelId || null,
             templateId: data.memberNicknameUpdate?.templateId || null,
           },
@@ -121,7 +121,7 @@ const Logger = () => {
               data.memberUsernameUpdate?.isActive === true ||
               data.memberUsernameUpdate?.isActive === false
                 ? data.memberUsernameUpdate?.isActive
-                : true,
+                : false,
             channelId: data.memberUsernameUpdate?.channelId || null,
             templateId: data.memberUsernameUpdate?.templateId || null,
           },
@@ -130,7 +130,7 @@ const Logger = () => {
               data.memberAvatarUpdate?.isActive === true ||
               data.memberAvatarUpdate?.isActive === false
                 ? data.memberAvatarUpdate?.isActive
-                : true,
+                : false,
             channelId: data.memberAvatarUpdate?.channelId || null,
             templateId: data.memberAvatarUpdate?.templateId || null,
           },
@@ -138,8 +138,8 @@ const Logger = () => {
 
         Cookies.set('logs-details', JSON.stringify(newData));
         dispatch(setLogs(newData));
-        setLoggerDetails(newData);
         setEnabled(data.isActive);
+        setLoggerDetails(newData);
       }
     } catch (error) {
       console.log('Fetch Logs Error: ', error);

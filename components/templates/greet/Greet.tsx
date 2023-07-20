@@ -3,7 +3,7 @@ import ToggleButton from '@/components/widgets/ToggleButton';
 import { setGreet } from '@/redux/slices/greetSlice';
 import { AppDispatch, useAppSelector } from '@/redux/store';
 import { GuildDto } from '@/types/AllGuilds';
-import { GreetDto } from '@/types/Features';
+import { GreetDto } from '@/types/Greet';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import Link from 'next/link';
@@ -33,10 +33,35 @@ const Greet = () => {
         }
       );
       if (status === 200) {
-        Cookies.set('greet-details', JSON.stringify(data));
-        dispatch(setGreet(data));
+        const newData = {
+          isActive:
+            data.isActive === true || data.isActive === false
+              ? data.isActive
+              : false,
+          welcome: {
+            isActive:
+              data.welcome?.isActive === true ||
+              data.welcome?.isActive === false
+                ? data.welcome?.isActive
+                : false,
+            channelId: data.welcome?.channelId || null,
+            templateId: data.welcome?.templateId || null,
+          },
+          farewell: {
+            isActive:
+              data.farewell?.isActive === true ||
+              data.farewell?.isActive === false
+                ? data.farewell?.isActive
+                : false,
+            channelId: data.farewell?.channelId || null,
+            templateId: data.farewell?.templateId || null,
+          },
+        };
+        
+        Cookies.set('greet-details', JSON.stringify(newData));
+        dispatch(setGreet(newData));
         setEnabled(data.isActive);
-        setGreetDetails(data);
+        setGreetDetails(newData);
       }
     } catch (error) {
       console.log('Greet Error: ', error);
