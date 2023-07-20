@@ -2,14 +2,19 @@
 import React, { useState } from 'react';
 import EmbedBuilderForm from './EmbedBuilderForm';
 import EmbedBuilderPreview from './EmbedBuilderPreview';
-import { EmbedTemplateDto } from '@/types/Greet';
+import { EmbedTemplateDto } from '@/types/Templates';
 
 interface EmbedBuilderProps {
   target: string;
   templateToEdit?: EmbedTemplateDto;
+  feature: string;
 }
 
-const EmbedBuilder = ({ target, templateToEdit }: EmbedBuilderProps) => {
+const EmbedBuilder = ({
+  target,
+  templateToEdit,
+  feature,
+}: EmbedBuilderProps) => {
   const [title, setTitle] = useState<string>(templateToEdit?.embed.title || '');
   const [description, setDescription] = useState<string>(
     templateToEdit?.embed.description || ''
@@ -84,6 +89,7 @@ const EmbedBuilder = ({ target, templateToEdit }: EmbedBuilderProps) => {
           setFooterIconURL={setFooterIconURL}
           target={target}
           templateToEdit={templateToEdit}
+          feature={feature}
         />
       </div>
       <div className='top-0 order-1 w-full bg-kittyFormBg p-4 md:sticky md:order-2'>

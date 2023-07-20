@@ -3,7 +3,7 @@ import ChooseTemplateTypeModal from '@/components/widgets/ChooseTemplateTypeModa
 import ToggleButton from '@/components/widgets/ToggleButton';
 import { setGreet } from '@/redux/slices/greetSlice';
 import { AppDispatch, useAppSelector } from '@/redux/store';
-import { PlainTemplateDto } from '@/types/Greet';
+import { PlainTemplateDto } from '@/types/Templates';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import Image from 'next/image';
@@ -159,7 +159,7 @@ const FarewellGreet = () => {
         <ToggleButton
           enabled={enabled}
           setEnabled={setEnabled}
-          updateGreet={updateGreet}
+          updateData={updateGreet}
         />
         <span className='text-sm'>
           Farewell Greet {enabled ? 'Enabled' : 'Disabled'}
@@ -172,6 +172,7 @@ const FarewellGreet = () => {
         setOpen={setOpenModal}
         currentGuildId={currentGuildId}
         target='farewell'
+        feature='greet'
       />
 
       {/* Create Template Btn */}

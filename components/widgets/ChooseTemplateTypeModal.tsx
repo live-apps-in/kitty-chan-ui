@@ -7,6 +7,7 @@ interface ChooseTemplateTypeModalProps {
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   currentGuildId: string | null;
   target: string; // welcome or farewell
+  feature: string;
 }
 
 export default function ChooseTemplateTypeModal({
@@ -14,6 +15,7 @@ export default function ChooseTemplateTypeModal({
   setOpen,
   currentGuildId,
   target,
+  feature,
 }: ChooseTemplateTypeModalProps) {
   return (
     <Transition.Root show={open} as={Fragment}>
@@ -52,13 +54,13 @@ export default function ChooseTemplateTypeModal({
                     </Dialog.Title>
                     <div className='mt-2 space-x-6'>
                       <Link
-                        href={`/dashboard/${currentGuildId}/greet/${target}/plain`}
+                        href={`/dashboard/${currentGuildId}/${feature}/${target}/plain`}
                         className='bg-black px-4 py-2 text-white text-sm tracking-wide rounded-full font-semibold'
                       >
                         Plain
                       </Link>
                       <Link
-                        href={`/dashboard/${currentGuildId}/greet/${target}/embed`}
+                        href={`/dashboard/${currentGuildId}/${feature}/${target}/embed`}
                         className='bg-black px-4 py-2 text-white text-sm tracking-wide rounded-full font-semibold'
                       >
                         Embed

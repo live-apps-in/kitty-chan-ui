@@ -1,4 +1,4 @@
-import { GreetDto } from '@/types/Greet';
+import { GreetDto } from '@/types/Features';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import Cookies from 'js-cookie';
 

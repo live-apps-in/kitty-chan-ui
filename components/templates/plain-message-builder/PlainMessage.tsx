@@ -1,6 +1,6 @@
 'use client';
 import { useAppSelector } from '@/redux/store';
-import { PlainTemplateDto, TemplateType } from '@/types/Greet';
+import { PlainTemplateDto, TemplateType } from '@/types/Templates';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import Image from 'next/image';
@@ -12,6 +12,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 interface PlainMessageProps {
   target: string;
   templateToEdit?: PlainTemplateDto;
+  feature: string;
 }
 
 const FormSchema = z.object({
@@ -21,7 +22,11 @@ const FormSchema = z.object({
 
 type FormSchemaType = z.infer<typeof FormSchema>;
 
-const PlainMessage = ({ target, templateToEdit }: PlainMessageProps) => {
+const PlainMessage = ({
+  target,
+  templateToEdit,
+  feature,
+}: PlainMessageProps) => {
   const {
     register,
     handleSubmit,
@@ -48,7 +53,7 @@ const PlainMessage = ({ target, templateToEdit }: PlainMessageProps) => {
     const templateData = {
       name: data.name,
       type: TemplateType.PLAIN,
-      target, // farewell or welcome
+      target, // Greet->farewell or welcome // Logs->messageUpdate or messageDelete etc..
       content: data.message,
     };
 
@@ -66,7 +71,7 @@ const PlainMessage = ({ target, templateToEdit }: PlainMessageProps) => {
           }
         );
         if (status === 200) {
-          router.push(`/dashboard/${currentGuildId}/greet/${target}`);
+          router.push(`/dashboard/${currentGuildId}/${feature}/${target}`);
         }
       } catch (error) {
         console.log('Plain Template Update Error: ', error);
@@ -86,7 +91,7 @@ const PlainMessage = ({ target, templateToEdit }: PlainMessageProps) => {
         );
         if (status === 201) {
           reset();
-          router.push(`/dashboard/${currentGuildId}/greet/${target}`);
+          router.push(`/dashboard/${currentGuildId}/${feature}/${target}`);
         }
       } catch (error) {
         console.log('Plain Template Create Error: ', error);

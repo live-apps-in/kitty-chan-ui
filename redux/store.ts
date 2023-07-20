@@ -2,6 +2,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import authReducer from './slices/authSlice';
 import guildReducer from './slices/guildSlice';
 import greetReducer from './slices/greetSlice';
+import logsReducer from './slices/logsSlice';
 import { useSelector, TypedUseSelectorHook } from 'react-redux';
 
 export const store = configureStore({
@@ -9,6 +10,7 @@ export const store = configureStore({
     authReducer,
     guildReducer,
     greetReducer,
+    logsReducer,
   },
 });
 

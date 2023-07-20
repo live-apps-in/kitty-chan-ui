@@ -2,7 +2,7 @@
 import EmbedBuilder from '@/components/templates/embed-builder/EmbedBuilder';
 import DashboardLayout from '@/layouts/DashboardLayout';
 import { useAppSelector } from '@/redux/store';
-import { EmbedTemplateDto, Target } from '@/types/Greet';
+import { EmbedTemplateDto, Target } from '@/types/Templates';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import { useParams } from 'next/navigation';
@@ -49,7 +49,11 @@ const EditFarewellEmbedTemplatePage = () => {
     !loading &&
     template && (
       <DashboardLayout>
-        <EmbedBuilder target={Target.FAREWELL} templateToEdit={template} />
+        <EmbedBuilder
+          target={Target.FAREWELL}
+          templateToEdit={template}
+          feature='greet'
+        />
       </DashboardLayout>
     )
   );

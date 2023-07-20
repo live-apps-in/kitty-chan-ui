@@ -2,14 +2,14 @@
 import PlainMessage from '@/components/templates/plain-message-builder/PlainMessage';
 import DashboardLayout from '@/layouts/DashboardLayout';
 import { useAppSelector } from '@/redux/store';
-import { Target, PlainTemplateDto } from '@/types/Templates';
+import { PlainTemplateDto } from '@/types/Templates';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
-const EditWelcomePlainTemplatePage = () => {
-  const { templateId } = useParams();
+const EditPlainTemplatePage = () => {
+  const { templateId, target } = useParams();
   const [template, setTemplate] = useState<PlainTemplateDto>();
   const [loading, setLoading] = useState(false);
 
@@ -35,7 +35,7 @@ const EditWelcomePlainTemplatePage = () => {
         setTemplate(data);
       }
     } catch (error) {
-      console.log('Fetch Welcome Template Error: ', error);
+      console.log('Fetch Single Template Error: ', error);
     }
   }
 
@@ -50,13 +50,13 @@ const EditWelcomePlainTemplatePage = () => {
     template && (
       <DashboardLayout>
         <PlainMessage
-          target={Target.WELCOME}
+          target={target}
           templateToEdit={template}
-          feature='greet' //For redirection after update
+          feature='logs' //For redirection after update
         />
       </DashboardLayout>
     )
   );
 };
 
-export default EditWelcomePlainTemplatePage;
+export default EditPlainTemplatePage;

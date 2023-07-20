@@ -1,16 +1,15 @@
 'use client';
-import PlainMessage from '@/components/templates/plain-message-builder/PlainMessage';
+import EmbedBuilder from '@/components/templates/embed-builder/EmbedBuilder';
 import DashboardLayout from '@/layouts/DashboardLayout';
 import { useAppSelector } from '@/redux/store';
-import { Target, PlainTemplateDto } from '@/types/Templates';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
-const EditWelcomePlainTemplatePage = () => {
-  const { templateId } = useParams();
-  const [template, setTemplate] = useState<PlainTemplateDto>();
+const EditEmbedTemplatePage = () => {
+  const { templateId, target } = useParams();
+  const [template, setTemplate] = useState<any>();
   const [loading, setLoading] = useState(false);
 
   const { currentGuildId } = useAppSelector(
@@ -49,14 +48,14 @@ const EditWelcomePlainTemplatePage = () => {
     !loading &&
     template && (
       <DashboardLayout>
-        <PlainMessage
-          target={Target.WELCOME}
+        <EmbedBuilder
+          target={target}
           templateToEdit={template}
-          feature='greet' //For redirection after update
+          feature='logs'
         />
       </DashboardLayout>
     )
   );
 };
 
-export default EditWelcomePlainTemplatePage;
+export default EditEmbedTemplatePage;

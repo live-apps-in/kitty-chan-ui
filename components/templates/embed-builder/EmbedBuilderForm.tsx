@@ -6,7 +6,7 @@ import { SketchPicker } from 'react-color';
 import { AiOutlineCloseCircle } from 'react-icons/ai';
 import { CiCirclePlus } from 'react-icons/ci';
 import { motion } from 'framer-motion';
-import { EmbedTemplateDto, TemplateType } from '@/types/Greet';
+import { EmbedTemplateDto, TemplateType } from '@/types/Templates';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import { useAppSelector } from '@/redux/store';
@@ -41,6 +41,7 @@ interface EmbedBuilderFormProps {
   setFooterIconURL: React.Dispatch<React.SetStateAction<string>>;
   target: string;
   templateToEdit?: EmbedTemplateDto;
+  feature: string;
 }
 
 const EmbedBuilderForm = ({
@@ -72,8 +73,12 @@ const EmbedBuilderForm = ({
   setFooterIconURL,
   target,
   templateToEdit,
+  feature,
 }: EmbedBuilderFormProps) => {
   const [displayColorPicker, setDisplayColorPicker] = useState(false);
+  const [templateName, setTemplateName] = useState<string>(
+    templateToEdit?.name || ''
+  );
   const handleColorChange = (newColor: any) => {
     setColor(newColor.hex);
   };
@@ -161,9 +166,9 @@ const EmbedBuilderForm = ({
     };
 
     const templateData = {
-      name: 'Embed Template Name',
+      name: templateToEdit ? templateToEdit.name : templateName,
       type: TemplateType.EMBED,
-      target, // farewell or welcome
+      target, // welcome,farwell,messageUpdate,messageDelete...
       embed: embedData,
     };
 
@@ -181,7 +186,7 @@ const EmbedBuilderForm = ({
           }
         );
         if (status === 200) {
-          router.push(`/dashboard/${currentGuildId}/greet/${target}`);
+          router.push(`/dashboard/${currentGuildId}/${feature}/${target}`);
         }
       } catch (error) {
         console.log('Embed Template Update Error: ', error);
@@ -200,7 +205,7 @@ const EmbedBuilderForm = ({
           }
         );
         if (status === 201) {
-          router.push(`/dashboard/${currentGuildId}/greet/${target}`);
+          router.push(`/dashboard/${currentGuildId}/${feature}/${target}`);
         }
       } catch (error) {
         console.log('Embed Template Create Error: ', error);
@@ -211,6 +216,16 @@ const EmbedBuilderForm = ({
   return (
     <form onSubmit={onSubmit} className='relative'>
       <div className='shrink-0 space-y-6'>
+        <InputField
+          placeholder={`${
+            templateToEdit
+              ? 'Enter template name to update'
+              : 'Enter Template Name'
+          }`}
+          value={templateName}
+          onChange={setTemplateName}
+        />
+
         <InputField
           placeholder='Embed Title'
           value={title}

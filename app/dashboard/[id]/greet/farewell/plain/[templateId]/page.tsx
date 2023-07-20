@@ -2,7 +2,7 @@
 import PlainMessage from '@/components/templates/plain-message-builder/PlainMessage';
 import DashboardLayout from '@/layouts/DashboardLayout';
 import { useAppSelector } from '@/redux/store';
-import { Target, PlainTemplateDto } from '@/types/Greet';
+import { Target, PlainTemplateDto } from '@/types/Templates';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import { useParams } from 'next/navigation';
@@ -49,7 +49,11 @@ const EditFarewellPlainTemplatePage = () => {
     !loading &&
     template && (
       <DashboardLayout>
-        <PlainMessage target={Target.FAREWELL} templateToEdit={template} />
+        <PlainMessage
+          target={Target.FAREWELL}
+          templateToEdit={template}
+          feature='greet'
+        />
       </DashboardLayout>
     )
   );

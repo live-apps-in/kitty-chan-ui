@@ -8,20 +8,6 @@ export enum Target {
   FAREWELL = 'farewell',
 }
 
-export interface GreetDto {
-  isActive: boolean;
-  welcome: {
-    isActive: boolean;
-    channelId: string;
-    templateId: string;
-  };
-  farewell: {
-    isActive: boolean;
-    channelId: string;
-    templateId: string;
-  };
-}
-
 export interface PlainTemplateDto {
   _id: string;
   name: string;

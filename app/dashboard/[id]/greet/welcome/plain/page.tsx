@@ -1,11 +1,11 @@
 import PlainMessage from '@/components/templates/plain-message-builder/PlainMessage';
 import DashboardLayout from '@/layouts/DashboardLayout';
-import { Target } from '@/types/Greet';
+import { Target } from '@/types/Templates';
 
 const CreateWelcomePlainTemplatePage = () => {
   return (
     <DashboardLayout>
-      <PlainMessage target={Target.WELCOME} />
+      <PlainMessage target={Target.WELCOME} feature='greet' />
     </DashboardLayout>
   );
 };

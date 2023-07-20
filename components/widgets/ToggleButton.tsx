@@ -7,20 +7,20 @@ function classNames(...classes: string[]) {
 interface ToggleButtonProps {
   enabled: boolean;
   setEnabled: React.Dispatch<React.SetStateAction<boolean>>;
-  updateGreet: (isActive: boolean) => void;
+  updateData: (isActive: boolean) => void;
 }
 
 export default function ToggleButton({
   enabled,
   setEnabled,
-  updateGreet,
+  updateData,
 }: ToggleButtonProps) {
   return (
     <Switch
       checked={enabled}
       onChange={(value) => {
         setEnabled(value);
-        updateGreet(value);
+        updateData(value);
       }}
       className={classNames(
         enabled ? 'bg-indigo-600' : 'bg-gray-200',

@@ -3,7 +3,7 @@ import ToggleButton from '@/components/widgets/ToggleButton';
 import { setGreet } from '@/redux/slices/greetSlice';
 import { AppDispatch, useAppSelector } from '@/redux/store';
 import { GuildDto } from '@/types/AllGuilds';
-import { GreetDto } from '@/types/Greet';
+import { GreetDto } from '@/types/Features';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import Link from 'next/link';
@@ -84,7 +84,7 @@ const Greet = () => {
         <ToggleButton
           enabled={enabled}
           setEnabled={setEnabled}
-          updateGreet={updateGreet}
+          updateData={updateGreet}
         />
         <span className='text-sm'>
           Greet {enabled ? 'Enabled' : 'Disabled'}
