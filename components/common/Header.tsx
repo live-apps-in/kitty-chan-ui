@@ -78,7 +78,7 @@ const Header = () => {
               href={process.env.NEXT_PUBLIC_DISCORD_OAUTH_URL}
               className='rounded-lg bg-purple-700 px-4 py-2 text-white'
             >
-              Login With Discord
+              Login With Discord v1
             </a>
           ) : (
             <div
@@ -151,7 +151,7 @@ const Header = () => {
                 height={500}
               />
               <p className='font-lilita text-2xl tracking-wide text-white'>
-                kitty chan BOT V1
+                kitty chan BOT
               </p>
             </Link>
             <button
