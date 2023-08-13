@@ -151,7 +151,7 @@ const Header = () => {
                 height={500}
               />
               <p className='font-lilita text-2xl tracking-wide text-white'>
-                kitty chan BOT
+                kitty chan BOT V1
               </p>
             </Link>
             <button
