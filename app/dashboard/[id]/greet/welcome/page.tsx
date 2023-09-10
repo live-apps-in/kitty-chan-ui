@@ -1,4 +1,4 @@
-import WelcomeGreet from '@/components/templates/greet/welcome/WelcomeGreet';
+import WelcomeGreet from '@/components/features/greet/welcome/WelcomeGreet';
 import DashboardLayout from '@/layouts/DashboardLayout';
 
 export const metadata = {

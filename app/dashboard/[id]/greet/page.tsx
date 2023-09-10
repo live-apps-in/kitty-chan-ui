@@ -1,4 +1,4 @@
-import Greet from '@/components/templates/greet/Greet';
+import Greet from '@/components/features/greet/Greet';
 import DashboardLayout from '@/layouts/DashboardLayout';
 
 const GreetPage = () => {

@@ -1,5 +1,5 @@
 'use client';
-import AllTemplates from '@/components/templates/logger/AllTemplates';
+import AllTemplates from '@/components/features/logger/AllTemplates';
 import DashboardLayout from '@/layouts/DashboardLayout';
 import { useParams } from 'next/navigation';
 

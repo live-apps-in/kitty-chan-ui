@@ -41,7 +41,7 @@ const Header = () => {
             width={500}
             height={500}
           />
-          <div className='text-2xl tracking-widest text-white '>
+          <div className='text-2xl tracking-widest text-white'>
             <p className='-mb-2 font-lilita'>KITTY</p>
             <p className='font-lilita'>CHAN</p>
           </div>

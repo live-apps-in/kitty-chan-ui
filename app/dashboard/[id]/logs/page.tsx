@@ -1,4 +1,4 @@
-import Logger from '@/components/templates/logger/Logger';
+import Logger from '@/components/features/logger/Logger';
 import DashboardLayout from '@/layouts/DashboardLayout';
 
 const LogsPage = () => {

@@ -1,4 +1,4 @@
-import EmbedBuilder from '@/components/templates/embed-builder/EmbedBuilder';
+import EmbedBuilder from '@/components/shared/embed-builder/EmbedBuilder';
 import DashboardLayout from '@/layouts/DashboardLayout';
 import { Target } from '@/types/Templates';
 

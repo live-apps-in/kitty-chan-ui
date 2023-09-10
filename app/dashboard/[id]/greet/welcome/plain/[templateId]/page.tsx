@@ -1,5 +1,5 @@
 'use client';
-import PlainMessage from '@/components/templates/plain-message-builder/PlainMessage';
+import PlainMessage from '@/components/shared/plain-message-builder/PlainMessage';
 import DashboardLayout from '@/layouts/DashboardLayout';
 import { useAppSelector } from '@/redux/store';
 import { Target, PlainTemplateDto } from '@/types/Templates';

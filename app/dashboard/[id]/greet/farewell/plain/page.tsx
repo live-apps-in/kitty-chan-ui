@@ -1,4 +1,4 @@
-import PlainMessage from '@/components/templates/plain-message-builder/PlainMessage';
+import PlainMessage from '@/components/shared/plain-message-builder/PlainMessage';
 import DashboardLayout from '@/layouts/DashboardLayout';
 import { Target } from '@/types/Templates';
 import React from 'react';

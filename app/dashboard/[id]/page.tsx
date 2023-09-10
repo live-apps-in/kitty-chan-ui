@@ -1,5 +1,5 @@
 'use client';
-import Dashboard from '@/components/templates/dashboard/Dashboard';
+import Dashboard from '@/components/features/dashboard/Dashboard';
 import { useAuth } from '@/hooks/useAuth';
 import DashboardLayout from '@/layouts/DashboardLayout';
 import { setCurrentGuildId } from '@/redux/slices/guildSlice';

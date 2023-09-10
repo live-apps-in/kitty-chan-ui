@@ -1,4 +1,4 @@
-import FarewellGreet from '@/components/templates/greet/farewell/FarewellGreet';
+import FarewellGreet from '@/components/features/greet/farewell/FarewellGreet';
 import DashboardLayout from '@/layouts/DashboardLayout';
 import React from 'react';
 
