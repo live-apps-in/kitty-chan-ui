@@ -78,7 +78,7 @@ const Header = () => {
               href={process.env.NEXT_PUBLIC_DISCORD_OAUTH_URL}
               className='rounded-lg bg-purple-700 px-4 py-2 text-white'
             >
-              Login With Discord
+              Login With Discord v1
             </a>
           ) : (
             <div
