@@ -23,6 +23,7 @@ const DashboardLayout = ({
 }) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [currentGuild, setCurrentGuild] = useState<GuildDto>();
+  const [currentFeature, setCurrentFeature] = useState<any>('');
 
   const pathname = usePathname();
   const router = useRouter();
@@ -101,6 +102,19 @@ const DashboardLayout = ({
       icon: '/assets/icons/hands-free.svg',
     },
   ];
+
+  const staffsAndRoles = {
+    name: 'Staffs & Roles',
+    href: `/dashboard/${currentGuildId}/staffs-roles`,
+  };
+
+  const allFeatures = [...navigation, ...generals, ...features];
+
+  useEffect(() => {
+    setCurrentFeature(
+      allFeatures?.map((item) => (pathname === item.href ? item.name : ''))
+    );
+  }, [pathname]);
 
   return (
     <>
@@ -466,11 +480,19 @@ const DashboardLayout = ({
             <Bars3Icon className='h-6 w-6' aria-hidden='true' />
           </button>
           {/* Current Section */}
-          <h2 className='text-lg font-semibold tracking-wide text-white lg:text-2xl'>
-            Dashboard
+          <h2 className='text-lg font-semibold tracking-wide text-white capitalize lg:text-2xl'>
+            {currentFeature}
           </h2>
+
           <div className='flex flex-1 gap-x-4 self-stretch lg:gap-x-6'>
             <div className='ml-auto flex items-center gap-x-4 lg:gap-x-14'>
+              {/* Staffs & Roles Btn */}
+              <Link
+                href={staffsAndRoles.href}
+                className='bg-kittyNeutralBlack  hover:bg-black text-white font-bold py-2 px-4 rounded'
+              >
+                {staffsAndRoles.name}
+              </Link>
               {/* Current Guild */}
               {currentGuild && (
                 <Menu as='div' className='relative'>
