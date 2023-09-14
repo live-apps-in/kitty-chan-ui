@@ -27,7 +27,14 @@ const RoleCard = ({
   );
   return (
     <>
-      <h2 className='text-md'>{role.name}</h2>
+      <div className='flex items-center gap-2'>
+        <h2 className='text-lg capitalize'>{role.name}</h2>
+        {role.systemRole && (
+          <div className='text-xs bg-black px-2 py-1 rounded-full'>
+            System Role
+          </div>
+        )}
+      </div>
       <div className='flex items-start gap-3'>
         <div>
           <div className='flex items-start gap-2'>
@@ -46,26 +53,28 @@ const RoleCard = ({
             </div>
           </div>
         </div>
-        <div className='absolute right-8 top-5 flex cursor-pointer items-center gap-8'>
-          <Link
-            href={`/dashboard/${currentGuildId}/roles/${role._id}`}
-            className='flex cursor-pointer items-center gap-1'
-          >
-            <FiEdit3 size={20} className=' text-white' />
-            <span className='text-sm'>Edit</span>
-          </Link>
-          {/* Delete Button */}
-          <button
-            onClick={() => handleDelete(role._id)}
-            className='group flex cursor-pointer items-center gap-1 '
-          >
-            <MdDeleteSweep
-              size={20}
-              className=' text-white group-hover:text-red-500'
-            />
-            <span className='text-sm group-hover:text-red-500'>Delete</span>
-          </button>
-        </div>
+        {!role.systemRole && (
+          <div className='absolute right-8 top-5 flex cursor-pointer items-center gap-8'>
+            <Link
+              href={`/dashboard/${currentGuildId}/roles/${role._id}`}
+              className='flex cursor-pointer items-center gap-1'
+            >
+              <FiEdit3 size={20} className=' text-white' />
+              <span className='text-sm'>Edit</span>
+            </Link>
+            {/* Delete Button */}
+            <button
+              onClick={() => handleDelete(role._id)}
+              className='group flex cursor-pointer items-center gap-1 '
+            >
+              <MdDeleteSweep
+                size={20}
+                className=' text-white group-hover:text-red-500'
+              />
+              <span className='text-sm group-hover:text-red-500'>Delete</span>
+            </button>
+          </div>
+        )}
       </div>
     </>
   );
