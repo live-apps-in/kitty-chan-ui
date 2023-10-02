@@ -11,6 +11,7 @@ import axios from 'axios';
 import Cookies from 'js-cookie';
 import { useAppSelector } from '@/redux/store';
 import { useRouter } from 'next/navigation';
+import { filterEmptyFields, hexToRgb } from '@/utils/utils';
 
 interface EmbedBuilderFormProps {
   title: string;
@@ -76,9 +77,7 @@ const EmbedBuilderForm = ({
   feature,
 }: EmbedBuilderFormProps) => {
   const [displayColorPicker, setDisplayColorPicker] = useState(false);
-  const [templateName, setTemplateName] = useState<string>(
-    templateToEdit?.name || ''
-  );
+  const [templateName, setTemplateName] = useState(templateToEdit?.name || '');
   const handleColorChange = (newColor: any) => {
     setColor(newColor.hex);
   };
@@ -145,7 +144,7 @@ const EmbedBuilderForm = ({
       title,
       description,
       url: embedURL,
-      color: `0x${color.slice(1)}`,
+      color: hexToRgb(color),
       fields,
       image: {
         url: image,
@@ -169,7 +168,8 @@ const EmbedBuilderForm = ({
       name: templateToEdit ? templateToEdit.name : templateName,
       type: TemplateType.EMBED,
       target, // welcome,farwell,messageUpdate,messageDelete...
-      embed: embedData,
+      // Remove keys that dont have any value
+      embed: filterEmptyFields(embedData),
     };
 
     if (templateToEdit) {

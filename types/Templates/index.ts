@@ -25,7 +25,7 @@ export type EmbedDto = {
   title: string;
   description: string;
   url: string;
-  color: string;
+  color: number;
   fields: Array<{
     name: string;
     value: string;

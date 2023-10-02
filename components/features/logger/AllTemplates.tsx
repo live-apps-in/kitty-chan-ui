@@ -14,6 +14,9 @@ import { loggerTypes } from './Logger';
 import { useDispatch } from 'react-redux';
 import { setLogs } from '@/redux/slices/logsSlice';
 import ToggleButton from '@/components/widgets/ToggleButton';
+import { BsChevronDown } from 'react-icons/bs';
+import { ChannelDto } from '@/types/Channel';
+import { LogsDto } from '@/types/Greet';
 
 interface AllTemplatesProps {
   target: string;
@@ -25,15 +28,46 @@ const AllTemplates = ({ target }: AllTemplatesProps) => {
   const [loading, setLoading] = useState(false);
   const [currentTemplateId, setCurrentTemplateId] = useState<string>();
 
+  const [openChannelsMenu, setOpenChannelsMenu] = useState(false);
+  const [currentChannel, setCurrentChannel] = useState<ChannelDto>();
+  const [channels, setChannels] = useState<ChannelDto[]>();
+
   const [enabled, setEnabled] = useState(false);
 
   const { currentGuildId } = useAppSelector(
     (state) => state.guildReducer.value
   );
 
-  const { logs } = useAppSelector((state) => state.logsReducer.value);
+  const { logs }: any = useAppSelector((state) => state.logsReducer.value);
 
   const dispatch = useDispatch<AppDispatch>();
+
+  async function fetchChannels() {
+    try {
+      setLoading(true);
+      const { data, status } = await axios.get(
+        `${process.env.NEXT_PUBLIC_KITTY_CHAN_API}/guild/channels`,
+        {
+          headers: {
+            Authorization: `Bearer ${Cookies.get('accessToken')}`,
+            'x-guild-id': currentGuildId,
+          },
+        }
+      );
+      if (status === 200) {
+        setChannels(data);
+        if (logs) {
+          setCurrentChannel(
+            data?.filter(
+              (channel: ChannelDto) => logs[target].channelId === channel.id
+            )[0]
+          );
+        }
+      }
+    } catch (error) {
+      console.log('Error: ', error);
+    }
+  }
 
   async function fetchAllTemplates() {
     try {
@@ -50,9 +84,9 @@ const AllTemplates = ({ target }: AllTemplatesProps) => {
       setLoading(false);
       if (status === 200) {
         setTemplates(data);
-        const targetTemplateId = (logs as any)?.[target]?.templateId;
+        const targetTemplateId = logs?.[target].templateId;
         setCurrentTemplateId(targetTemplateId || null);
-        setEnabled((logs as any)?.[target]?.isActive);
+        setEnabled(logs?.[target].isActive);
       } else {
         setTemplates([]);
       }
@@ -62,14 +96,55 @@ const AllTemplates = ({ target }: AllTemplatesProps) => {
   }
   useEffect(() => {
     fetchAllTemplates();
+    fetchChannels();
   }, []);
 
-  async function handleApplyTemplate(templateId: string) {
+  // Update channel while selecting channel in dropdown
+  async function handleChannelUpdate(channel: ChannelDto) {
+    setCurrentChannel(channel);
+
     const logsData = {
       ...logs,
       [target]: {
         isActive: true,
-        channelId: currentGuildId,
+        channelId: channel.id,
+        templateId: currentTemplateId,
+      },
+    };
+
+    try {
+      const { status, data } = await axios.patch(
+        `${process.env.NEXT_PUBLIC_KITTY_CHAN_API}/logger`,
+        logsData,
+        {
+          headers: {
+            Authorization: `Bearer ${Cookies.get('accessToken')}`,
+            'x-guild-id': currentGuildId,
+          },
+        }
+      );
+
+      if (status == 200) {
+        // Update logs details in cookie
+        Cookies.set('logs-details', JSON.stringify(data));
+        dispatch(setLogs(data));
+      }
+    } catch (error) {
+      console.log('Apply Channel Template Error: ', error);
+    }
+  }
+
+  async function handleApplyTemplate(templateId: string) {
+    if (!currentChannel) {
+      window.alert('Choose channel First');
+      return;
+    }
+
+    const logsData = {
+      ...logs,
+      [target]: {
+        isActive: true,
+        channelId: currentChannel.id,
         templateId,
       },
     };
@@ -124,7 +199,7 @@ const AllTemplates = ({ target }: AllTemplatesProps) => {
   async function toggleIsActive(isActive: boolean) {
     const logsData = {
       ...logs,
-      [target]: { ...(logs as any)?.[target], isActive },
+      [target]: { ...logs?.[target], isActive },
     };
 
     try {
@@ -142,7 +217,7 @@ const AllTemplates = ({ target }: AllTemplatesProps) => {
       if (status === 200) {
         Cookies.set('logs-details', JSON.stringify(data));
         dispatch(setLogs(data));
-        setEnabled(data?.[target]?.isActive);
+        setEnabled(data?.[target].isActive);
       }
     } catch (error) {
       console.log('Logs Target isActive Update Error: ', error);
@@ -154,6 +229,37 @@ const AllTemplates = ({ target }: AllTemplatesProps) => {
       <h1 className='text-2xl capitalize'>
         {loggerTypes.map((logger) => logger.href === target && logger.name)}
       </h1>
+      <div>
+        <button
+          onClick={() => setOpenChannelsMenu(!openChannelsMenu)}
+          className=' bg-kittyNeutralBlack hover:bg-black text-white font-bold py-2 px-4 rounded-lg w-full md:w-44 mt-4 flex items-center gap-2'
+        >
+          Select Channel
+          <BsChevronDown className={`${openChannelsMenu && 'rotate-180'}`} />
+        </button>
+        {openChannelsMenu && (
+          <ul className='text-sm z-100  text-white max-h-44 overflow-y-scroll bg-kittyNeutralBlack md:w-1/4 p-2 rounded-lg mt-1'>
+            {channels?.map((channel: ChannelDto) => (
+              <li
+                key={channel.id}
+                onClick={() => {
+                  setOpenChannelsMenu(false);
+                  handleChannelUpdate(channel);
+                }}
+                className='flex items-center hover:bg-kittyDarkGray hover:rounded-lg gap-2 px-4 cursor-pointer'
+              >
+                <p className='block py-4 cursor-pointer'>{channel.name}</p>
+              </li>
+            ))}
+          </ul>
+        )}
+        {currentChannel && (
+          <div className='flex  items-center my-3 gap-2'>
+            <p className='text-sm'>Selected Channel:</p>
+            <p>{currentChannel.name}</p>
+          </div>
+        )}
+      </div>
 
       <div className='flex items-center gap-2 my-4'>
         <ToggleButton

@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import EmbedBuilderForm from './EmbedBuilderForm';
 import EmbedBuilderPreview from './EmbedBuilderPreview';
 import { EmbedTemplateDto } from '@/types/Templates';
+import { rgbToHex } from '@/utils/utils';
 
 interface EmbedBuilderProps {
   target: string;
@@ -22,12 +23,15 @@ const EmbedBuilder = ({
   const [embedURL, setEmbedURL] = useState<string>(
     templateToEdit?.embed.url || ''
   );
-  const [color, setColor] = useState<string>(
-    (templateToEdit && `#${templateToEdit.embed.color.slice(2)}`) || '#000000'
+
+  console.log(templateToEdit?.embed);
+  const [color, setColor] = useState(
+    (templateToEdit && rgbToHex(templateToEdit?.embed?.color)) || ''
   );
   const [fields, setFields] = useState<
     Array<{ name: string; value: string; inline: boolean }>
   >(templateToEdit?.embed.fields || [{ name: '', value: '', inline: true }]);
+  
   const [tumbnailURL, setTumbnailURL] = useState<string>(
     templateToEdit?.embed.thumbnail?.url || ''
   );
