@@ -25,11 +25,9 @@ const Navbar = ({
       )}
     >
       <Link href="/" className="flex items-center gap-1 md:gap-3">
-        <Image
+        <img
           src="/assets/images/kitty-chan-logo.jpg"
           alt="kitty chan"
-          width={100}
-          height={100}
           className="rounded-full h-12 md:h-12 w-auto"
         />
         <h2 className="font-extrabold text-xl md:text-2xl">kitty chan</h2>

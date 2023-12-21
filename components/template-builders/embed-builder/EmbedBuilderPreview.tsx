@@ -36,11 +36,9 @@ const EmbedBuilderPreview = ({
     <div className="bg-neutral-900">
       {/* Embed Preview text section */}
       <div className="mb-4 flex items-center gap-4">
-        <Image
+        <img
           src="/assets/images/discord-logo.svg"
           alt="Discord logo"
-          width={200}
-          height={200}
           className="h-10 w-10 object-contain"
         />
         <h2 className="font-semibold text-white">Preview</h2>

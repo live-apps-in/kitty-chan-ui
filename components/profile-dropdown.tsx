@@ -28,7 +28,7 @@ const ProfileDropdown = ({ userDetails }: ProfileDropdownType) => {
           <p className="font-semibold text-white lg:flex">
             {userDetails.discord.global_name}
           </p>
-          <Image
+          <img
             src={`${
               userDetails
                 ? `https://cdn.discordapp.com/avatars/${userDetails.discord.id}/${userDetails.discord.avatar}.png`
@@ -37,8 +37,6 @@ const ProfileDropdown = ({ userDetails }: ProfileDropdownType) => {
 `}
             alt="avatar"
             className="h-auto w-12 rounded-full"
-            width={500}
-            height={500}
           />
         </div>
       </DropdownMenuTrigger>

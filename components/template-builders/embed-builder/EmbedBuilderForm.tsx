@@ -263,11 +263,9 @@ const EmbedBuilderForm = ({
               className="flex cursor-pointer items-center justify-center rounded-md"
               onClick={() => setDisplayColorPicker(!displayColorPicker)}
             >
-              <Image
+              <img
                 src="/assets/icons/color-palette.svg"
                 alt="Color Palette"
-                width={200}
-                height={200}
                 className="h-8 w-8 mt-2"
               />
             </div>

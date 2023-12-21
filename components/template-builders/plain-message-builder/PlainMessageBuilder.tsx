@@ -140,23 +140,19 @@ const PlainMessageBuilder = ({
       {/* Preview Container */}
       <div className="top-0 order-1 w-full bg-neutral-900 p-4 md:sticky md:order-2 rounded-xl">
         <div className="mb-4 flex items-center gap-2">
-          <Image
+          <img
             src="/assets/images/discord-logo.svg"
             alt="Discord logo"
-            width={200}
-            height={200}
             className="h-10 w-10 object-contain"
           />
           <h2 className="font-semibold text-white">Template Preview</h2>
         </div>
 
         <div className="relative flex h-auto w-full items-start gap-2 rounded-md bg-neutral-950 px-4 py-4 shadow-xl">
-          <Image
+          <img
             className="h-12 w-auto rounded-full"
             src="/assets/images/kitty-chan-logo.jpg"
             alt="kitty chan logo"
-            width={500}
-            height={500}
           />
           <div className="w-full mt-[1px]">
             <div className="flex items-center gap-2">

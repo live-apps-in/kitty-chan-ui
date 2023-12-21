@@ -54,10 +54,8 @@ const ServersPage = () => {
           <div className="col-span-3 px-4 sm:px-6 lg:px-8 py-6">
             <div className="flex items-center gap-4 mb-8">
               <p className="text-2xl md:text-4xl font-bold ">Your Servers</p>
-              <Image
+              <img
                 src="/assets/images/discord-avatar-2.png"
-                width={350}
-                height={350}
                 alt="kitty chan"
                 className="h-12 w-auto md:hidden"
               />
@@ -92,10 +90,9 @@ const ServersPage = () => {
               </ul>
             )}
           </div>
-          <Image
+          <img
             src="/assets/images/discord-avatar-2.png"
-            width={350}
-            height={350}
+
             alt="kitty chan"
             className="hidden md:block sticky col-span-2 top-0"
           />

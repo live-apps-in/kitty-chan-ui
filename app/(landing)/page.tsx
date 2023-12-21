@@ -44,10 +44,8 @@ export default function LandingPage() {
           )}
         </div>
         <div className="md:absolute right-24 place-self-center  -mt-28 -ml-10">
-          <Image
+          <img
             src="/assets/images/kitty-chan-logo.png"
-            width={350}
-            height={350}
             alt="kitty chan"
             className="relative"
           />

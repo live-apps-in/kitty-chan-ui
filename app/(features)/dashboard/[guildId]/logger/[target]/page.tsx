@@ -522,12 +522,10 @@ const LoggerTargetPage = () => {
                       </div>
 
                       <div className="flex items-start gap-2">
-                        <Image
+                        <img
                           className="h-11 w-auto rounded-full mt-1"
                           src="/assets/images/kitty-chan-logo.jpg"
                           alt="kitty chan logo"
-                          width={500}
-                          height={500}
                         />
                         <div>
                           <div className="flex items-center gap-2">
@@ -616,12 +614,10 @@ const LoggerTargetPage = () => {
                       </div>
 
                       <div className="flex items-start gap-2">
-                        <Image
+                        <img
                           className="h-11 w-auto rounded-full mt-1"
                           src="/assets/images/kitty-chan-logo.jpg"
                           alt="kitty chan logo"
-                          width={500}
-                          height={500}
                         />
                         <div>
                           <div className="flex items-center gap-2">
