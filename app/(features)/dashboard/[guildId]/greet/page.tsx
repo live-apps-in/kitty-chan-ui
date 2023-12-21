@@ -3,7 +3,7 @@ import { icons } from "lucide-react";
 import { useParams } from "next/navigation";
 import EventsList from "@/components/events-list";
 
-export const greetEvents = [
+const greetEvents = [
   {
     name: "Welcome",
     path: "welcome",

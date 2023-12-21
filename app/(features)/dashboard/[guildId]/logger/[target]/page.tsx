@@ -7,7 +7,6 @@ import Cookies from "js-cookie";
 import { useEffect, useState } from "react";
 import { EmbedTemplateDto, PlainTemplateDto } from "@/types/template-builders";
 import { LoggerDto } from "@/types/features/logger";
-import { LoggerEvents } from "../page";
 import { Badge } from "@/components/ui/badge";
 import {
   Edit2,
@@ -36,6 +35,64 @@ import CreateTemplateDialog from "@/components/create-template";
 import { ChannelDto } from "@/types/channel";
 import { Separator } from "@/components/ui/separator";
 import ToggleButton from "@/components/ToggleButton";
+import { icons } from "lucide-react";
+
+const messages = [
+  {
+    name: "Message Update",
+    path: "messageUpdate",
+    icon: icons["MessageSquare"],
+    description:
+      "When user edits an message in server.The edited message can be resent with our kitty bot!",
+  },
+  {
+    name: "Message Delete",
+    path: "messageDelete",
+    icon: icons["MessageSquare"],
+    description:
+      "When user edits an message in server.The edited message can be resent with our kitty bot!",
+  },
+];
+
+const members = [
+  {
+    name: "Member Add Role",
+    path: "memberAddRole",
+    icon: icons["MessageSquare"],
+    description:
+      "When user edits an message in server.The edited message can be resent with our kitty bot!",
+  },
+  {
+    name: "Member Remove Role",
+    path: "memberRemoveRole",
+    icon: icons["MessageSquare"],
+    description:
+      "When user edits an message in server.The edited message can be resent with our kitty bot!",
+  },
+  {
+    name: "Member Nickname Update",
+    path: "memberNicknameUpdate",
+    icon: icons["MessageSquare"],
+    description:
+      "When user edits an message in server.The edited message can be resent with our kitty bot!",
+  },
+  {
+    name: "Member Username Update",
+    path: "memberUsernameUpdate",
+    icon: icons["MessageSquare"],
+    description:
+      "When user edits an message in server.The edited message can be resent with our kitty bot!",
+  },
+  {
+    name: "Member Avatar Update",
+    path: "memberAvatarUpdate",
+    icon: icons["MessageSquare"],
+    description:
+      "When user edits an message in server.The edited message can be resent with our kitty bot!",
+  },
+];
+
+const LoggerEvents = [...members, ...messages];
 
 const LoggerTargetPage = () => {
   const { target, guildId } = useParams();

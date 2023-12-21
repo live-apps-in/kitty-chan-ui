@@ -58,8 +58,6 @@ const members = [
   },
 ];
 
-export const LoggerEvents = [...members, ...messages];
-
 const LoggerPage = () => {
   const { guildId } = useParams();
   return (

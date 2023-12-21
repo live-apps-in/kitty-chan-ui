@@ -6,7 +6,6 @@ import { useParams } from "next/navigation";
 import Cookies from "js-cookie";
 import { useEffect, useState } from "react";
 import { EmbedTemplateDto, PlainTemplateDto } from "@/types/template-builders";
-import { greetEvents } from "../page";
 import { Badge } from "@/components/ui/badge";
 import {
   Edit2,
@@ -35,7 +34,24 @@ import { ChannelDto } from "@/types/channel";
 import { Separator } from "@/components/ui/separator";
 import ToggleButton from "@/components/ToggleButton";
 import { GreetDto } from "@/types/features/greet";
+import { icons } from "lucide-react";
 
+const greetEvents = [
+  {
+    name: "Welcome",
+    path: "welcome",
+    icon: icons["MessageSquare"],
+    description:
+      "When an user joins the server.The welcome message will be sent by our kitty bot!",
+  },
+  {
+    name: "Farewell",
+    path: "farewell",
+    icon: icons["MessageSquare"],
+    description:
+      "When an user leaves the server.The farewell message will be sent by our kitty bot!",
+  },
+];
 const GreetTargetPage = () => {
   const { target, guildId } = useParams();
 
