@@ -29,7 +29,7 @@ export default function LandingPage() {
           </h4>
           <p className="text-md md:text-lg max-w-5xl mb-6">
             Unleash the power of Kittychan, the perfect Discord bot designed to
-            enhance your server experience. Whether you're a gaming community,
+            enhance your server experience. Whether youre a gaming community,
             study group, or just a bunch of friends hanging out, Kittychan is
             here to make your Discord server even more awesome.
           </p>

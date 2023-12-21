@@ -19,7 +19,7 @@ const EventsList = ({ events, guildId, feature }: EventsListProps) => {
   return (
     <ul className="flex flex-wrap gap-4 h-full pb-4">
       {events.map(({ name, path, icon: Icon, description }) => (
-        <Link href={`/dashboard/${guildId}/${feature}/${path}`}>
+        <Link key={path} href={`/dashboard/${guildId}/${feature}/${path}`}>
           <li
             key={path}
             className="p-4 shadow-md shadow-purple-400 bg-[#0e0e0e]  rounded-2xl group w-full md:w-60 h-full hover:shadow-purple-300"
