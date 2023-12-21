@@ -351,7 +351,7 @@ const GreetTargetPage = () => {
           </SelectTrigger>
           <SelectContent>
             {channels?.map((channel) => (
-              <SelectItem value={channel.id}>
+              <SelectItem key={channel.id} value={channel.id}>
                 <p className="capitalize">{channel.name}</p>
               </SelectItem>
             ))}
