@@ -1,4 +1,4 @@
-FROM node:16-alpine
+FROM node:18-alpine
 WORKDIR /usr/src/kittychan-ui
 COPY package.json ./
 COPY package-lock.json ./
