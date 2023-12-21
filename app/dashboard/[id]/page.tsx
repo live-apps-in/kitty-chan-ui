@@ -11,6 +11,7 @@ import { useDispatch } from 'react-redux';
 
 export default function DashboardPage() {
   const { loading } = useAuth();
+  
   const { isAuth, userDetails } = useAppSelector(
     (state) => state.authReducer.value
   );

@@ -1,6 +1,13 @@
+import { type ClassValue, clsx } from "clsx";
+import { twMerge } from "tailwind-merge";
+
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs));
+}
+
 export function hexToRgb(hex: string) {
   // Remove the '#' character if it's included
-  hex = hex.replace(/^#/, '');
+  hex = hex.replace(/^#/, "");
 
   // Parse the hex string into three parts: red, green, and blue
   const r = parseInt(hex.substring(0, 2), 16);
@@ -14,7 +21,7 @@ export function hexToRgb(hex: string) {
 
 export function rgbToHex(rgbValue: number): string {
   // Convert the decimal RGB value to hexadecimal
-  const hexColor = '#' + rgbValue.toString(16).padStart(6, '0');
+  const hexColor = "#" + rgbValue.toString(16).padStart(6, "0");
   return hexColor;
 }
 
@@ -22,18 +29,18 @@ export function filterEmptyFields(embedData: any) {
   // Helper function to recursively filter out empty properties
   function recursivelyFilter(obj: any) {
     for (const key in obj) {
-      if (typeof obj[key] === 'object' && !Array.isArray(obj[key])) {
+      if (typeof obj[key] === "object" && !Array.isArray(obj[key])) {
         // If the property is an object (but not an array), recursively filter it
         recursivelyFilter(obj[key]);
 
         // Check if all properties within the object are empty
         const isEmpty = Object.values(obj[key]).every(
-          (value) => value === '' || value === undefined
+          (value) => value === "" || value === undefined
         );
         if (isEmpty) {
           delete obj[key];
         }
-      } else if (obj[key] === '' || obj[key] === undefined) {
+      } else if (obj[key] === "" || obj[key] === undefined) {
         // If the property is empty or undefined, delete it
         delete obj[key];
       }

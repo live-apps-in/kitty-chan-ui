@@ -1,9 +1,9 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import Cookies from 'js-cookie';
+import { DiscordUserDto } from "@/types/user";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import Cookies from "js-cookie";
 
 type AuthState = {
-  isAuth: boolean;
-  userDetails: any;
+  userDetails: DiscordUserDto;
 };
 
 type InitialState = {
@@ -13,28 +13,27 @@ type InitialState = {
 const initialState = {
   value: {
     isAuth: false,
-    userDetails: Cookies.get('userDetails')
-      ? JSON.parse(Cookies.get('userDetails')!)
+    userDetails: Cookies.get("userDetails")
+      ? JSON.parse(Cookies.get("userDetails")!)
       : null,
   },
 } as InitialState;
 
 export const auth = createSlice({
-  name: 'auth',
+  name: "auth",
   initialState,
   reducers: {
-    setUserDetails: (state, action: PayloadAction<any>) => {
+    setUserDetails: (_, action: PayloadAction<DiscordUserDto>) => {
       return {
         value: {
-          isAuth: true,
           userDetails: action.payload,
         },
       };
     },
 
     logOut: () => {
-      Cookies.remove('userDetails');
-      Cookies.remove('accessToken');
+      Cookies.remove("userDetails");
+      Cookies.remove("accessToken");
       return initialState;
     },
   },

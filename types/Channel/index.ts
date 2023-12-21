@@ -1,4 +1,4 @@
-export interface ChannelDto {
-  name: string;
+export type ChannelDto = {
   id: string;
-}
+  name: string;
+};

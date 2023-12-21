@@ -35,8 +35,6 @@ const AllGuilds = () => {
         }
       );
       setGuilds(data);
-      Cookies.set('all-guilds', JSON.stringify(data));
-      dispatch(setAllGuilds(data));
     } catch (error) {
       console.log(error);
     }

@@ -1,4 +1,4 @@
-import React, { ChangeEvent } from 'react';
+import React, { ChangeEvent } from "react";
 
 interface InputFieldProps {
   type?: string;
@@ -6,6 +6,7 @@ interface InputFieldProps {
   placeholder: string;
   onChange: (value: string) => void;
   className?: string;
+  label?: string;
 }
 
 const InputField: React.FC<InputFieldProps> = ({
@@ -14,21 +15,27 @@ const InputField: React.FC<InputFieldProps> = ({
   placeholder,
   onChange,
   className,
+  label,
 }) => {
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     onChange(e.target.value);
   };
 
   return (
-    <input
-      type={type ? type : 'text'}
-      value={value}
-      placeholder={placeholder}
-      onChange={handleChange}
-      className={`${
-        className ? className : 'w-full'
-      } block rounded-md border-0 bg-kittyNeutralBlack px-2 py-2 text-white shadow-sm outline-none placeholder:text-kittyTextGray sm:text-sm sm:leading-6`}
-    />
+    <div>
+      <label htmlFor={label} className="text-white text-sm font-semibold">
+        {label}
+      </label>
+      <input
+        type={type ? type : "text"}
+        value={value}
+        placeholder={placeholder}
+        onChange={handleChange}
+        className={`${
+          className ? className : "w-full"
+        } form-input-field placeholder:text-xs  mt-2`}
+      />
+    </div>
   );
 };
 
