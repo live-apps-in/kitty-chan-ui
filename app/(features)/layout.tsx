@@ -214,7 +214,7 @@ export default function DashboardLayout({
         </Transition.Root>
 
         {/* Static sidebar for desktop */}
-        <div className="hidden bg-black  lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-64 lg:flex-col">
+        <div className="hidden bg-black lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-64 lg:flex-col">
           <div className="flex grow flex-col gap-y-5 overflow-y-auto  px-6 pb-4">
             <div className="flex gap-2 h-16 shrink-0 items-center">
               <img
@@ -269,7 +269,7 @@ export default function DashboardLayout({
 
         <div className="lg:pl-64">
           {/* Dashboard Layout Navbar */}
-          <div className="sticky top-0 bg-black z-40 flex h-16 shrink-0 items-center  gap-x-4  px-4 shadow-sm sm:gap-x-6 sm:px-6 lg:px-8">
+          <div className="bg-black z-40 flex h-20 shrink-0 items-center gap-x-4 px-4 shadow-sm sm:gap-x-6 sm:px-6 lg:px-8">
             {/* Button to open sidebar in mobile view */}
             <button
               type="button"
@@ -290,7 +290,7 @@ export default function DashboardLayout({
             </div>
           </div>
 
-          <main className="px-4 sm:px-6 lg:px-8 py-4  sm:mr-6 lg:mr-8 rounded-xl bg-[#222327] min-h-screen">
+          <main className="px-4 sm:px-6 lg:px-8 py-4  sm:mr-6 lg:mr-8 rounded-3xl bg-[#222327] min-h-screen">
             {children}
           </main>
         </div>

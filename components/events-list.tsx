@@ -22,7 +22,7 @@ const EventsList = ({ events, guildId, feature }: EventsListProps) => {
         <Link key={path} href={`/dashboard/${guildId}/${feature}/${path}`}>
           <li
             key={path}
-            className="p-4 shadow-md shadow-purple-400 bg-[#0e0e0e]  rounded-2xl group w-full md:w-60 h-full hover:shadow-purple-300"
+            className="p-4 shadow-md  bg-[#0e0e0e]  rounded-2xl group w-full md:w-60 h-full hover:shadow-purple-300"
           >
             <Icon className="text-purple-300 mb-2" size={35} />
             <h2 className="font-semibold capitalize text-lg mb-1">{name}</h2>

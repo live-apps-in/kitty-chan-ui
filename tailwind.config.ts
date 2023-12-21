@@ -16,7 +16,7 @@ module.exports = {
       },
     },
     extend: {
-      fontFamily: { ps: ["Ps"] },
+      fontFamily: { psr: ["Psr"] },
       backgroundImage: {
         "kitty-chan-bg": "url('/assets/images/kitty-chan-bg.webp')",
       },

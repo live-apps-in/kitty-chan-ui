@@ -467,7 +467,7 @@ const LoggerTargetPage = () => {
         <main>
           {/* Current Template Container */}
           <div className="mb-4">
-            <h2 className="mb-2 text-lg font-semibold text-purple-200">
+            <h2 className="mb-6 text-2xl font-semibold text-purple-200">
               Templates
             </h2>
             <ul>
@@ -476,7 +476,7 @@ const LoggerTargetPage = () => {
                   return (
                     <li
                       key={template._id}
-                      className="px-6 py-4 shadow-md bg-[#0e0e0e] rounded-lg  lg:w-[60%] 2xl:w-[75%]"
+                      className="px-6 py-4 shadow-[0px_0px_20px_1px_#6ad09d] bg-[#0e0e0e] rounded-lg  lg:w-[60%] 2xl:w-[75%]"
                     >
                       <div className="flex items-center gap-4 mb-2">
                         <h2 className="font-semibold capitalize text-xl bg-gradient-to-r from-purple-300 via-purple-200  to-purple-300  bg-clip-text text-transparent">
@@ -556,7 +556,7 @@ const LoggerTargetPage = () => {
                   return (
                     <li
                       key={template._id}
-                      className="px-6 py-4 shadow-md bg-[#0e0e0e] rounded-lg lg:w-[60%] 2xl:w-[75%]"
+                      className="px-6 py-4 shadow-md  bg-[#0e0e0e] rounded-lg lg:w-[60%] 2xl:w-[75%]"
                     >
                       <div className="flex items-center gap-4 mb-2">
                         <h2 className="font-semibold capitalize text-xl bg-gradient-to-r from-purple-300 via-purple-200  to-purple-300  bg-clip-text text-transparent">

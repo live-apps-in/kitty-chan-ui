@@ -3,8 +3,8 @@
 @tailwind utilities;
 
 @font-face {
-  font-family: "Ps";
-  src: url("../public/fonts/Ps.woff");
+  font-family: "Psr";
+  src: url("../public/fonts/Psr.woff");
 }
 
 @layer base {
@@ -81,7 +81,7 @@
 }
 
 .heading {
-  @apply font-extrabold text-transparent text-4xl bg-clip-text bg-gradient-to-r from-purple-400 via-yellow-200 to-pink-600;
+  @apply font-extrabold tracking-wide text-transparent text-[42px] bg-clip-text bg-gradient-to-r from-purple-300 to-pink-400;
 }
 
 .form-input-field {

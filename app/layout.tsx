@@ -19,7 +19,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="font-ps">
+      <body className="font-psr">
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"
