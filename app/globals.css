@@ -2,6 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: "Ps";
+  src: url("../public/fonts/Ps.woff");
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;

@@ -92,7 +92,6 @@ const ServersPage = () => {
           </div>
           <img
             src="/assets/images/discord-avatar-2.png"
-
             alt="kitty chan"
             className="hidden md:block sticky col-span-2 top-0"
           />

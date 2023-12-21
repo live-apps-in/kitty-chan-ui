@@ -43,7 +43,7 @@ export default function LandingPage() {
             </Link>
           )}
         </div>
-        <div className="md:absolute right-24 place-self-center  -mt-28 -ml-10">
+        <div className="md:absolute right-24 place-self-center -mt-28 -ml-10">
           <img
             src="/assets/images/kitty-chan-logo.png"
             alt="kitty chan"
